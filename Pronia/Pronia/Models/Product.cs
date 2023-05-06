@@ -27,7 +27,12 @@
 
         public ICollection<Comment> Comments { get; set; }
 
-    
+        public ICollection<ProductSize> ProductSizes { get; set; }
+
+        public ICollection<ProductTag> ProductTags { get; set; }
+
+        public ICollection<ProductCategory> ProductCategories { get; set; }
+
 
 
     }

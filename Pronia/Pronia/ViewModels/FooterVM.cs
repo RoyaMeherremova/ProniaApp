@@ -2,11 +2,9 @@
 
 namespace Pronia.ViewModels
 {
-    public class LayoutVM
+    public class FooterVM
     {
+        public List<Social> Socials { get; set; }
         public Dictionary<string,string> Settings { get; set; }
-
-        public int BasketCount { get; set; }
- 
     }
 }

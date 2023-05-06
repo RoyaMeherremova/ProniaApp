@@ -39,7 +39,9 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<ILayoutService, LayoutService>();
-
+builder.Services.AddScoped<ISocialService, SocialService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IAdvertisingService, AdvertisingService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -4,6 +4,9 @@ namespace Pronia.Services.Interfaces
 {
     public interface ILayoutService
     {
-        LayoutVM GetSettingDatas();
+        Dictionary<string,string> GetSettingDatas();
+
     }
 }
+
+

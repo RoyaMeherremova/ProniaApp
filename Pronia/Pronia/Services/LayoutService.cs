@@ -1,4 +1,6 @@
-﻿using Pronia.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Pronia.Data;
+using Pronia.Models;
 using Pronia.Services.Interfaces;
 using Pronia.ViewModels;
 
@@ -13,11 +15,11 @@ namespace Pronia.Services
             _context = context;
         }
 
-        public  LayoutVM GetSettingDatas()
+        public  Dictionary<string,string> GetSettingDatas()
         {
             Dictionary<string, string> settings = _context.Settings.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
 
-            return new LayoutVM { Settings = settings };
+            return settings ;
         }
     }
 }
