@@ -25,9 +25,9 @@ namespace Pronia.Services
         public async Task<Product> GetById(int id) => await _context.Products.FindAsync(id);
 
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
-  
 
-        public async  Task<List<Product>> GetPaginatedDatas(int page, int take)
+
+        public async Task<List<Product>> GetPaginatedDatas(int page, int take)
         {
             return await _context.Products.Include(m => m.Images)
                                           .Include(m => m.ProductCategories)
@@ -37,11 +37,13 @@ namespace Pronia.Services
                                           .Skip((page * take) - take).Take(take).ToListAsync();
         }
 
-        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m=>!m.SofDelete).OrderByDescending(m=>m.Rate).ToListAsync();
-      
-        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.Where(m=>!m.SofDelete).OrderByDescending(m=>m.SaleCount).ToListAsync();
-   
+        public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.Rate).ToListAsync();
+
+        public async Task<List<Product>> GetBestsellerProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.SaleCount).ToListAsync();
+
         public async Task<List<Product>> GetLatestProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.CreadtedDate).ToListAsync();
-     
+
+        public async Task<List<Product>> GetNewProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.CreadtedDate).Take(4).ToListAsync();
+
     }
 }

@@ -13,5 +13,10 @@ namespace Pronia.ViewModels
 
         public List<Product> BestsellerProduct { get; set; }
         public List<Product> LatestProduct { get; set; }
+        public List<Bannner> Banners { get; set; }
+
+        public List<Product> NewProducts { get; set; }
+
+
     }
 }
