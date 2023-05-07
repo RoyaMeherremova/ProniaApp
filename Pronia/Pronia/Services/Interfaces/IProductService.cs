@@ -4,7 +4,7 @@ namespace Pronia.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAll();
+        Task<List<Product>> GetAll();
         Task<Product> GetFullDataById(int id);
         Task<Product> GetById(int id);
         Task<List<Product>> GetPaginatedDatas(int page, int take);

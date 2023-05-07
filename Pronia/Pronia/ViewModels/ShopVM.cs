@@ -12,5 +12,7 @@ namespace Pronia.ViewModels
 
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
 
+       public  List<Product> Products { get; set; }
+
     }
 }

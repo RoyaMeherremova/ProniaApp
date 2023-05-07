@@ -30,16 +30,25 @@ namespace Pronia.Controllers
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
             List<Product> newProducts = await _productService.GetNewProducts();
             List<Color> colors = await _colorService.GetColors();
-
+            List<Product> products = await _productService.GetAll();
             ShopVM model = new()
             {
                 Categories = categories,
                 NewProducts = newProducts,
                 Colors = colors,
-                HeaderBackgrounds= headerBackgrounds
+                HeaderBackgrounds= headerBackgrounds,
+                Products = products
 
             };
             return View(model);
+        }
+
+
+        public async Task<IActionResult> GetProductsByCategory(int? id)
+        {
+            List<Product> products = await _context.ProductCategories.Where(m => m.Category.Id == id).Select(m=>m.Product).ToListAsync();
+
+            return PartialView("_ProductsPartial", products);
         }
     }
 }

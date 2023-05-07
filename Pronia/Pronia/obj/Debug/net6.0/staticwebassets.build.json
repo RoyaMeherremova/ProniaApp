@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "N4YyAPKd/UmGIPjKlB2uXDd8i8Fe6BI7kXEcp36cexk=",
+  "Hash": "bS/Rm5qziWHcrCa2T7G+VrbyEEGi94U2hlDQSqjDcDU=",
   "Source": "Pronia",
   "BasePath": "_content/Pronia",
   "Mode": "Default",
@@ -2990,6 +2990,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\js\\plugins\\wow.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\js\\script.js",
+      "SourceId": "Pronia",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\",
+      "BasePath": "_content/Pronia",
+      "RelativePath": "assets/js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\script.js"
     },
     {
       "Identity": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\js\\vendor\\bootstrap.bundle.min.js",

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Data;
+using Pronia.ViewModels;
 
 namespace Pronia.Controllers
 {
@@ -13,7 +14,14 @@ namespace Pronia.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+            BlogVM model = new()
+            {
+                HeaderBackgrounds = headerBackgrounds,
+            };
+           
+
+            return View(model);
         }
     }
 }
