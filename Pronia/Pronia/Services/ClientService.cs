@@ -5,16 +5,16 @@ using Pronia.Services.Interfaces;
 
 namespace Pronia.Services
 {
-    public class SliderService : ISliderService
+    public class ClientService : IClientService
     {
         private readonly AppDbContext _context;
 
-        public SliderService(AppDbContext context)
+        public ClientService(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Slider>> GetAll() => await _context.Sliders.ToListAsync();
-     
+        public async Task<List<Client>> GetClients() => await _context.Clients.ToListAsync();
+
     }
 }

@@ -17,6 +17,9 @@ namespace Pronia.ViewModels
 
         public List<Product> NewProducts { get; set; }
 
+        public List<Client> Clients { get; set; }
+        public List<Brand> Brands { get; set; }
+        public List<Blog> Blogs { get; set; }
 
     }
 }

@@ -5,16 +5,16 @@ using Pronia.Services.Interfaces;
 
 namespace Pronia.Services
 {
-    public class SliderService : ISliderService
+    public class BrandService : IBrandService
     {
         private readonly AppDbContext _context;
 
-        public SliderService(AppDbContext context)
+        public BrandService(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Slider>> GetAll() => await _context.Sliders.ToListAsync();
-     
+        public async Task<List<Brand>> GetBrands()=> await _context.Brands.Where(m => !m.SofDelete).ToListAsync();
+
     }
 }

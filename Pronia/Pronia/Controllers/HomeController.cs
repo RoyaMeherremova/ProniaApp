@@ -13,15 +13,28 @@ namespace Pronia.Controllers
         private readonly ISliderService _sliderService;
         private readonly IAdvertisingService _advertisingService;
         private readonly IProductService _productService;
-        
+        private readonly IClientService _clientService;
+        private readonly IBrandService _brandService;
+        private readonly IBlogService _blogService;
+  
+
         public HomeController(AppDbContext context,
                               ISliderService sliderService, 
-                              IAdvertisingService advertisingService, IProductService productService)
+                              IAdvertisingService advertisingService,
+                              IProductService productService, 
+                              IClientService clientService,
+                              IBrandService brandService,
+                              IBlogService blogService)
         {
             _sliderService = sliderService;
             _advertisingService = advertisingService;
-            _context= context;
-            _productService= productService;
+            _context = context;
+            _productService = productService;
+            _clientService = clientService;
+            _brandService= brandService;
+            _blogService = blogService;
+       
+            
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +46,13 @@ namespace Pronia.Controllers
             List<Product> bestsellerProducts = await _productService.GetBestsellerProducts();
             List<Product> latestProducts = await _productService.GetLatestProducts();
             List<Bannner> banners = await _context.Bannners.ToListAsync();
-            List<Product> newProducts= await _productService.GetNewProducts();  
+            List<Product> newProducts= await _productService.GetNewProducts();
+            List<Client> clients = await _clientService.GetClients();
+            List<Brand> brands = await _brandService.GetBrands();
+            List<Blog> blogs = await _blogService.GetBlogs();
+          
+
+
             HomeVM model = new()
             {
                 Sliders= sliders,
@@ -44,6 +63,12 @@ namespace Pronia.Controllers
                 LatestProduct= latestProducts,
                 Banners= banners,
                 NewProducts = newProducts,
+                Clients= clients,
+                Brands= brands,
+                Blogs= blogs,
+
+              
+
             };
             return View(model);
         }

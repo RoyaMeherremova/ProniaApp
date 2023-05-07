@@ -14,8 +14,7 @@
              <div class="swiper-slide animation-style-01">
               <div
                 class="slide-inner style-1 bg-height"
-                data-bg-image="~/assets/images/slider/bg/@slider.Image"
-              >
+                     data-bg-image="assets/images/slider/bg/1-1.jpg" style="background-image: url(assets/images/slider/bg/1-1.jpg);">
                 <div class="container">
                   <div class="row">
                     <div class="col-lg-6 order-2 order-lg-1 align-self-center">
@@ -41,7 +40,7 @@
                         <div class="scene fill">
                           <div class="expand-width" data-depth="0.2">
                             <img
-                              src="~/assets/images/website-images//1-1-524x617.png"
+                              src="~/assets/images/website-images//@slider.Image"
                               alt="Inner Image"
                             />
                           </div>
@@ -634,8 +633,7 @@
         <div class="container-fluid">
           <div
             class="testimonial-bg"
-            data-bg-image="~/assets/images/testimonial/bg/1-1-1820x443.jpg"
-          >
+             data-bg-image="assets/images/testimonial/bg/@Model.HeaderBackgrounds["ClientBackgroudPhoto"]">
             <div class="section-title-wrap">
               <h2 class="section-title">@Model.HeaderBackgrounds["ClientHeader"]</h2>
               <p class="section-desc mb-0">
@@ -646,66 +644,29 @@
           <div class="container custom-space">
             <div class="swiper-container testimonial-slider with-bg">
               <div class="swiper-wrapper">
-                <div class="swiper-slide testimonial-item">
+                    @foreach(var client in Model.Clients)
+                    {
+                         <div class="swiper-slide testimonial-item">
                   <div class="user-info mb-3">
                     <div class="user-shape-wrap">
                       <div class="user-img">
                         <img
-                          src="~/assets/images/website-images//1--1rnu4p.png"
+                          src="~/assets/images/website-images//@client.Image"
                           alt="User Image"
                         />
                       </div>
                     </div>
                     <div class="user-content text-charcoal">
-                      <h4 class="user-name mb-1">Phoenix Baker</h4>
+                                    <h4 class="user-name mb-1">@client.Name</h4>
                       <span class="user-occupation">Client</span>
                     </div>
                   </div>
                   <p class="user-comment mb-6">
-                    Lorem ipsum dolor sit amet, conse adipisic elit, sed do
-                    eiusmod tempo incididunt ut labore et dolore. magna
+                                @client.Description
                   </p>
                 </div>
-                <div class="swiper-slide testimonial-item">
-                  <div class="user-info mb-3">
-                    <div class="user-shape-wrap">
-                      <div class="user-img">
-                        <img
-                          src="~/assets/images/website-images//2.png"
-                          alt="User Image"
-                        />
-                      </div>
-                    </div>
-                    <div class="user-content text-charcoal">
-                      <h4 class="user-name mb-1">Phoenix Baker</h4>
-                      <span class="user-occupation">Client</span>
-                    </div>
-                  </div>
-                  <p class="user-comment mb-6">
-                    Lorem ipsum dolor sit amet, conse adipisic elit, sed do
-                    eiusmod tempo incididunt ut labore et dolore. magna
-                  </p>
-                </div>
-                <div class="swiper-slide testimonial-item">
-                  <div class="user-info mb-3">
-                    <div class="user-shape-wrap">
-                      <div class="user-img">
-                        <img
-                          src="~/assets/images/website-images//3.png"
-                          alt="User Image"
-                        />
-                      </div>
-                    </div>
-                    <div class="user-content text-charcoal">
-                      <h4 class="user-name mb-1">Phoenix Baker</h4>
-                      <span class="user-occupation">Client</span>
-                    </div>
-                  </div>
-                  <p class="user-comment mb-6">
-                    Lorem ipsum dolor sit amet, conse adipisic elit, sed do
-                    eiusmod tempo incididunt ut labore et dolore. magna
-                  </p>
-                </div>
+                    }
+
               </div>
               <!-- Add Pagination -->
               <div class="swiper-pagination without-absolute"></div>
@@ -726,46 +687,16 @@
               <div class="col-lg-12">
                 <div class="swiper-container brand-slider">
                   <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <a class="brand-item" href="#">
-                        <img
-                          src="~/assets/images/website-images//1-1.png"
-                          alt="Brand Image"
-                        />
-                      </a>
-                    </div>
-                    <div class="swiper-slide">
-                      <a class="brand-item" href="#">
-                        <img
-                          src="~/assets/images/website-images//1-2.png"
-                          alt="Brand Image"
-                        />
-                      </a>
-                    </div>
-                    <div class="swiper-slide">
-                      <a class="brand-item" href="#">
-                        <img
-                          src="~/assets/images/website-images//1-3.png"
-                          alt="Brand Image"
-                        />
-                      </a>
-                    </div>
-                    <div class="swiper-slide">
-                      <a class="brand-item" href="#">
-                        <img
-                          src="~/assets/images/website-images//1-4.png"
-                          alt="Brand Image"
-                        />
-                      </a>
-                    </div>
-                    <div class="swiper-slide">
-                      <a class="brand-item" href="#">
-                        <img
-                          src="~/assets/images/website-images//1-5.png"
-                          alt="Brand Image"
-                        />
-                      </a>
-                    </div>
+                            @foreach(var brand in Model.Brands)
+                            {
+                                <div class="swiper-slide">
+                                    <a class="brand-item" href="#">
+                                        <img src="~/assets/images/website-images//@brand.Image"
+                                         alt="Brand Image" />
+                                    </a>
+                                </div>
+                            }
+
                   </div>
                 </div>
               </div>
@@ -779,124 +710,52 @@
       <div class="blog-area section-space-bottom-100">
         <div class="container">
           <div class="section-title-wrap">
-            <h2 class="section-title mb-7">Latest Blog</h2>
+            <h2 class="section-title mb-7">@Model.HeaderBackgrounds["LatestBlogHeader"]</h2>
             <p class="section-desc">
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in a piece of classical Latin literature
+           
+                @Model.HeaderBackgrounds["LatestBlogHeaderDescription"]
             </p>
           </div>
           <div class="row">
             <div class="col-lg-12">
               <div class="swiper-container blog-slider">
                 <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <div class="blog-item">
-                      <div class="blog-content">
-                        <div class="blog-meta">
-                          <ul>
-                            <li class="author">
-                              <a href="#">By: Admin</a>
-                            </li>
-                            <li class="date">24 April 2021</li>
-                          </ul>
-                        </div>
-                        <h2 class="title">
-                          <a href="blog.html">There Many Variations</a>
-                        </h2>
-                        <p class="short-desc mb-7">
-                          Lorem ipsum dolor sit amet, consecteturl adipisl elit,
-                          sed do eiusmod tempor incidio ut labore et dolore
-                          magna aliqua.
-                        </p>
-                      </div>
-                      <div class="blog-img img-hover-effect">
-                        <a href="blog.html">
-                          <img
-                            class="img-full"
-                            src="~/assets/images/website-images/1-1-310x220.jpg"
-                            alt="Blog Image"
-                          />
-                        </a>
-                        <div class="inner-btn-wrap">
-                          <a class="inner-btn" href="blog.html">
-                            <i class="pe-7s-link"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="blog-item">
-                      <div class="blog-content">
-                        <div class="blog-meta">
-                          <ul>
-                            <li class="author">
-                              <a href="#">By: Admin</a>
-                            </li>
-                            <li class="date">24 April 2021</li>
-                          </ul>
-                        </div>
-                        <h2 class="title">
-                          <a href="blog.html">Maecenas Laoreet Massa</a>
-                        </h2>
-                        <p class="short-desc mb-7">
-                          Lorem ipsum dolor sit amet, consecteturl adipisl elit,
-                          sed do eiusmod tempor incidio ut labore et dolore
-                          magna aliqua.
-                        </p>
-                      </div>
-                      <div class="blog-img img-hover-effect">
-                        <a href="blog.html">
-                          <img
-                            class="img-full"
-                            src="~/assets/images/website-images/1-2-310x220.jpg"
-                            alt="Blog Image"
-                          />
-                        </a>
-                        <div class="inner-btn-wrap">
-                          <a class="inner-btn" href="blog.html">
-                            <i class="pe-7s-link"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="blog-item">
-                      <div class="blog-content">
-                        <div class="blog-meta">
-                          <ul>
-                            <li class="author">
-                              <a href="#">By: Admin</a>
-                            </li>
-                            <li class="date">24 April 2021</li>
-                          </ul>
-                        </div>
-                        <h2 class="title">
-                          <a href="blog.html">Aenean Vulputate Lorem</a>
-                        </h2>
-                        <p class="short-desc mb-7">
-                          Lorem ipsum dolor sit amet, consecteturl adipisl elit,
-                          sed do eiusmod tempor incidio ut labore et dolore
-                          magna aliqua.
-                        </p>
-                      </div>
-                      <div class="blog-img img-hover-effect">
-                        <a href="blog.html">
-                          <img
-                            class="img-full"
-                            src="~/assets/images/website-images/1-3-310x220.jpg"
-                            alt="Blog Image"
-                          />
-                        </a>
-                        <div class="inner-btn-wrap">
-                          <a class="inner-btn" href="blog.html">
-                            <i class="pe-7s-link"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                        @foreach(var blog in Model.Blogs)
+                        {
+                            <div class="swiper-slide">
+                                <div class="blog-item">
+                                    <div class="blog-content">
+                                        <div class="blog-meta">
+                                            <ul>
+                                                <li class="author">
+                                                    <a href="#">By: @blog.Author.Name</a>
+                                                </li>
+                                                <li class="date">@blog.CreadtedDate.ToString("dd MMMMM yyyy")</li>
+                                            </ul>
+                                        </div>
+                                        <h2 class="title">
+                                            <a href="blog.html">@blog.Tittle</a>
+                                        </h2>
+                                        <p class="short-desc mb-7">
+                                            @blog.Description
+                                        </p>
+                                    </div>
+                                    <div class="blog-img img-hover-effect">
+                                        <a href="blog.html">
+                                            <img class="img-full"
+                                             src="~/assets/images/website-images/@blog.Images.FirstOrDefault()?.Image"
+                                             alt="Blog Image" />
+                                        </a>
+                                        <div class="inner-btn-wrap">
+                                            <a class="inner-btn" href="blog.html">
+                                                <i class="pe-7s-link"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                 </div>
                 <!-- Add Arrows -->
                 <div class="swiper-button-next"></div>
