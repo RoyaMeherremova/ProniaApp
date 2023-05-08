@@ -5,7 +5,11 @@ namespace Pronia.ViewModels
     public class ProductDetailVM
     {
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
-        public  Product ProductDt { get; set; }
+        public  Product ProductDetail { get; set; }
+
+        public List<Advertising> Advertisings { get; set; }
+
+        public List<Product> RelatedProducts { get; set; }
 
 
     }

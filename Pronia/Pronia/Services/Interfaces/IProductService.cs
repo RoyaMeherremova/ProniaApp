@@ -5,7 +5,7 @@ namespace Pronia.Services.Interfaces
     public interface IProductService
     {
         Task<List<Product>> GetAll();
-        Task<Product> GetFullDataById(int id);
+        Task<Product> GetFullDataById(int? id);
         Task<Product> GetById(int id);
         Task<int> GetCountAsync();
 

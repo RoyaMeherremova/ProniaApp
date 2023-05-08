@@ -14,15 +14,21 @@ namespace Pronia.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
         private readonly IColorService _colorService;
+        private readonly ITagService _tagService;
+        private readonly IAdvertisingService _advertisingService;
         public ShopController(AppDbContext context,
                               ICategoryService categoryService,
                               IProductService productService,
-                              IColorService colorService)
+                              IColorService colorService,
+                              ITagService tagService,
+                              IAdvertisingService advertisingService)
         {
             _categoryService = categoryService;
             _productService = productService;
             _colorService = colorService;
             _context = context;
+            _tagService = tagService;
+            _advertisingService = advertisingService;
         }
 
         public async Task<IActionResult> Index(int page = 1, int take = 4)
@@ -33,23 +39,19 @@ namespace Pronia.Controllers
             Paginate<Product> paginatedDatas = new(paginateProducts, page, pageCount);
 
            
-
-
-
-    
             List<Category> categories = await _categoryService.GetCategories();
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
             List<Product> newProducts = await _productService.GetNewProducts();
             List<Color> colors = await _colorService.GetColors();
-
+            List<Tag> tags = await _tagService.GetAllAsync();
             ShopVM model = new()
             {
                 Categories = categories,
                 NewProducts = newProducts,
                 Colors = colors,
                 HeaderBackgrounds = headerBackgrounds,
-
-                PaginatedDatas = paginatedDatas
+                PaginatedDatas = paginatedDatas,
+                Tags= tags
 
             };
             return View(model);
@@ -111,11 +113,16 @@ namespace Pronia.Controllers
 
             Product product = await _productService.GetFullDataById((int)id);
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+            List<Advertising> advertisings = await _advertisingService.GetAll();
+            List<Product> relatedProducts = await _context.ProductCategories.Where(m => m.Category.Id == id).Select(m => m.Product).ToListAsync();
             ProductDetailVM model = new()
             {
                 HeaderBackgrounds = headerBackgrounds,
-                ProductDt = product
-                
+                ProductDetail = product,
+                Advertisings = advertisings,
+                RelatedProducts = relatedProducts
+
+
 
             };
             return View(model);
@@ -134,6 +141,12 @@ namespace Pronia.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> GetProductsByTag(int? id)
+        {
+            List<Product> products = await _context.ProductTags.Where(m => m.Tag.Id==id).Select(m=>m.Product).ToListAsync();
+
+            return PartialView("_ProductsPartial", products);
+        }
 
 
 

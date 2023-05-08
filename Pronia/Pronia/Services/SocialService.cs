@@ -13,9 +13,7 @@ namespace Pronia.Services
         {
             _context = context;
         }
-        public async Task<List<Social>> GetAllSocials()
-        {
-            return await _context.Socials.ToListAsync();
-        }
+        public async Task<List<Social>> GetAllSocials()=> await _context.Socials.Where(m => !m.SofDelete).ToListAsync();
+   
     }
 }

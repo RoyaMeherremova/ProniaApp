@@ -16,5 +16,7 @@ namespace Pronia.ViewModels
 
        public Paginate<Product> PaginatedDatas { get; set; }
 
+        public List<Tag> Tags { get; set; }
+
     }
 }
