@@ -15,31 +15,37 @@ namespace Pronia.Services
         }
         public async Task<List<Product>> GetAll() => await _context.Products.Include(m => m.Images)
                                                                             .Include(m => m.ProductCategories)
+                                                                            .ThenInclude(m => m.Category)
                                                                             .Include(m => m.ProductSizes)
                                                                             .Include(m => m.ProductTags)
+                                                                             .ThenInclude(m => m.Tag)
                                                                             .Include(m => m.Comments)
                                                                             .Where(m => !m.SofDelete).ToListAsync();
 
         public async Task<Product> GetFullDataById(int id) => await _context.Products.Include(m => m.Images)
                                                                                      .Include(m => m.ProductCategories)
+                                                                                      .ThenInclude(m=>m.Category)
                                                                                      .Include(m => m.ProductSizes)
                                                                                      .Include(m => m.ProductTags)
+                                                                                     .ThenInclude(m => m.Tag)
                                                                                      .Include(m => m.Comments)
                                                                                      .FirstOrDefaultAsync(m => m.Id == id);
 
         public async Task<Product> GetById(int id) => await _context.Products.FindAsync(id);
 
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
-
+        
 
         public async Task<List<Product>> GetPaginatedDatas(int page, int take)
         {
             return await _context.Products.Include(m => m.Images)
-                                          .Include(m => m.ProductCategories)
-                                          .Include(m => m.ProductSizes)
-                                          .Include(m => m.ProductTags)
-                                          .Include(m => m.Comments)
-                                          .Skip((page * take) - take).Take(take).ToListAsync();
+                                        .Include(m => m.ProductCategories)
+                                        .ThenInclude(m => m.Category)
+                                        .Include(m => m.ProductSizes)
+                                        .Include(m => m.ProductTags)
+                                        .Include(m => m.Comments)
+                                        .Where(m => !m.SofDelete)
+                                        .Skip((page * take) - take).Take(take).ToListAsync();
         }
 
         public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.Rate).ToListAsync();

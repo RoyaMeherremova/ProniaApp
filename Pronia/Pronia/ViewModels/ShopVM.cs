@@ -1,4 +1,5 @@
-﻿using Pronia.Models;
+﻿using Pronia.Helpers;
+using Pronia.Models;
 
 namespace Pronia.ViewModels
 {
@@ -12,7 +13,8 @@ namespace Pronia.ViewModels
 
         public Dictionary<string, string> HeaderBackgrounds { get; set; }
 
-       public  List<Product> Products { get; set; }
+
+       public Paginate<Product> PaginatedDatas { get; set; }
 
     }
 }
