@@ -25,7 +25,7 @@ namespace Pronia.Services
 
         public async Task<Product> GetFullDataById(int? id) 
         { 
-            var cat = await _context.Products.Include(m => m.Images)
+            Product productById = await _context.Products.Include(m => m.Images)
                                                                     .Include(m => m.ProductCategories)
                                                                     .ThenInclude(m => m.Category)
                                                                     .Include(m => m.ProductSizes)
@@ -35,7 +35,7 @@ namespace Pronia.Services
                                                                     .Include(m => m.Color)
                                                                     .Include(m => m.Comments)
                                                                     .FirstOrDefaultAsync(m => m.Id == id);
-            return cat;
+            return productById;
         } 
 
         public async Task<Product> GetById(int id) => await _context.Products.FindAsync(id);

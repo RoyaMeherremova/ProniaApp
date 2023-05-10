@@ -8,7 +8,7 @@
         let parent = $(".product-grid-view")
         $.ajax({
 
-            url: `shop/GetProductsByColor?id=${colorId}`,
+            url: `shop/GetProductsByCategory?id=${colorId}`,
             type: "Get",
 
             success: function (res) {
@@ -140,5 +140,13 @@
 
 
     })
+
+
+
+
+    //BLOGS
+
+
+
 
 })

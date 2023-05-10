@@ -109,21 +109,28 @@ namespace Pronia.Controllers
 
 
         public async Task<IActionResult> ProductDetail(int? id)
+       
         {
 
             Product product = await _productService.GetFullDataById((int)id);
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
             List<Advertising> advertisings = await _advertisingService.GetAll();
-            List<Product> relatedProducts = await _context.ProductCategories.Where(m => m.Category.Id == id).Select(m => m.Product).ToListAsync();
+            List<Category> categories = await _categoryService.GetCategories();
+            List<Product> relatedproducts = new();
+            foreach(var category in categories)
+            {
+              
+                
+                    Product reProduct = await _context.ProductCategories.Where(m=>m.Category.Id==category.Id).Select(m => m.Product).FirstAsync();
+                    relatedproducts.Add(reProduct);
+                
+            }
             ProductDetailVM model = new()
             {
                 HeaderBackgrounds = headerBackgrounds,
                 ProductDetail = product,
                 Advertisings = advertisings,
-                RelatedProducts = relatedProducts
-
-
-
+                RelatedProducts = relatedproducts
             };
             return View(model);
         }

@@ -15,7 +15,7 @@
                         <h2 class="breadcrumb-heading">Single Product</h2>
                         <ul>
                             <li>
-                                <a href="index.html">Home</a>
+                                <a  asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li>Single Product variable</li>
                         </ul>
@@ -173,7 +173,7 @@
                                 @foreach (var category in Model.ProductDetail.ProductCategories)
                                 {
                                     <li>
-                                        <a href="#">@category.Category.Name</a>
+                                        <a href="#">@category.Category.Name,</a>
                                     </li>
                                 }
 
@@ -460,7 +460,7 @@
                            
                                     <div class="swiper-slide product-item">
                                         <div class="product-img">
-                                            <a href="single-product-variable.html">
+                                            <a asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">
                                                 <img class="primary-img"
                                              src="~/assets/images/website-images/@relatedProduct.MainImage"
                                                  alt="Product Images" />
@@ -510,7 +510,7 @@
                                         </div>
                                         <div class="product-content">
                                             <a class="product-name"
-                                       href="single-product-variable.html">@relatedProduct.Name</a>
+                                       asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">@relatedProduct.Name</a>
                                             <div class="price-box pb-1">
                                             <span class="new-price">$@relatedProduct.Price</span>
                                             </div>
