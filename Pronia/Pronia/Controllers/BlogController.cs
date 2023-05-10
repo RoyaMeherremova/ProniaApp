@@ -33,7 +33,7 @@ namespace Pronia.Controllers
             _categoryService = categoryService;
             _productService = productService;
         }
-
+        
         public async Task<IActionResult> Index(int page= 1,int take=2)
         {
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);

@@ -43,9 +43,13 @@ namespace Pronia.Services
         public async Task<int> GetCountAsync() => await _context.Products.CountAsync();
         
 
-        public async Task<List<Product>> GetPaginatedDatas(int page, int take)
+        public async Task<List<Product>> GetPaginatedDatas(int page, int take, int? cateId)
         {
-            return await _context.Products.Include(m => m.Images)
+            List<Product> products = null;
+
+            if(cateId is null)
+            {
+                products = await _context.Products.Include(m => m.Images)
                                         .Include(m => m.ProductCategories)
                                         .ThenInclude(m => m.Category)
                                         .Include(m => m.ProductSizes)
@@ -53,6 +57,14 @@ namespace Pronia.Services
                                         .Include(m => m.Comments)
                                         .Where(m => !m.SofDelete)
                                         .Skip((page * take) - take).Take(take).ToListAsync();
+            }
+            else
+            {
+                products = await _context.ProductCategories.Where(m => m.Category.Id == cateId).Select(m => m.Product).Where(m => !m.SofDelete).Skip((page * take) - take).Take(take).ToListAsync();
+
+            }
+
+            return products;
         }
 
         public async Task<List<Product>> GetFeaturedProducts() => await _context.Products.Where(m => !m.SofDelete).OrderByDescending(m => m.Rate).ToListAsync();

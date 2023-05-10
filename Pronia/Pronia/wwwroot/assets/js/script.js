@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    //get products by category  on click category 
+    ////get products by category  on click category 
     $(document).on("click", ".category", function (e) {
 
         e.preventDefault();

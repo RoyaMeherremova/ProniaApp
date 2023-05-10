@@ -1,0 +1,21 @@
+﻿@model Advertising
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container my-5">
+    <h1>Slider detail</h1>
+    <label for="formFile" class="form-label my-2">Photo</label>
+    <div class="slider-content" style="width:200px;height:250px;">
+        <img style="width:100%;height:100%;" src="~/assets/images/website-images//@Model.Image" />
+    </div>
+    <div class="form-group">
+        <label for="formFile" class="form-label my-2">Tittle</label>
+        <input class="form-control" disabled id="customFile" asp-for="Name" />
+    </div>
+    <div class="form-group">
+        <label for="formFile" class="form-label my-2">Description</label>
+        <textarea class="form-control" disabled id="category-text" asp-for="Description" rows="5"></textarea>
+    </div>
+    <a class="btn btn-info mt-5" asp-action="Index">Back</a>
+</div>

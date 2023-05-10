@@ -31,13 +31,12 @@ namespace Pronia.Controllers
             _advertisingService = advertisingService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 4)
+        public async Task<IActionResult> Index(int page = 1, int take = 5, int? cateId = null)
         {
 
-            List<Product> paginateProducts = await _productService.GetPaginatedDatas(page, take);
+            List<Product> paginateProducts = await _productService.GetPaginatedDatas(page, take, cateId);
             int pageCount = await GetPageCountAsync(take);
             Paginate<Product> paginatedDatas = new(paginateProducts, page, pageCount);
-
            
             List<Category> categories = await _categoryService.GetCategories();
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);

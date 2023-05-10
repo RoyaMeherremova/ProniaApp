@@ -45,7 +45,7 @@
                                 <h2 class="widgets-title mb-4">Categories</h2>
                                 <ul class="widgets-category">
                                     <li>
-                                        <a href="#" class="allproducts">
+                                        <a asp-controller="Shop" asp-action="Index" asp-route-cateId="" class="allproducts">
                                             <i class="fa fa-chevron-right"></i>
                                             @foreach (var category in Model.Categories)
                                             {
@@ -57,7 +57,7 @@
                                     @foreach (var category in Model.Categories)
                                     {
                                         <li>
-                                            <a asp-controller="Shop" asp-action="Index" asp-route-id="@category.Id" class="category">
+                                            <a asp-controller="Shop" asp-action="Index" asp-route-cateId="@category.Id" class="category">
                                                 <i class="fa fa-chevron-right"></i>
                                                 @category.Name <span>(@category.ProductCategories?.Count())</span>
                                             </a>
@@ -235,7 +235,7 @@
                                 @for (int i = 1; i <= Model.PaginatedDatas.TotalPage; i++)
                                 {
 
-                                    <li class="page-item active @(Model.PaginatedDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link" asp-controller="Blog" asp-action="Index" asp-route-page="@i">@i</a></li>
+                                    <li class="page-item  @(Model.PaginatedDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link"  asp-action="Index" asp-route-page="@i">@i</a></li>
 
                                 }
 

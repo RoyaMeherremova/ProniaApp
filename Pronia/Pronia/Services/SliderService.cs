@@ -15,6 +15,8 @@ namespace Pronia.Services
         }
 
         public async Task<List<Slider>> GetAll() => await _context.Sliders.Where(m => !m.SofDelete).ToListAsync();
-     
+
+        public async Task<Slider> GetSliderById(int? id)=> await _context.Sliders.Where(m => !m.SofDelete).FirstOrDefaultAsync(m=>m.Id==id);
+   
     }
 }

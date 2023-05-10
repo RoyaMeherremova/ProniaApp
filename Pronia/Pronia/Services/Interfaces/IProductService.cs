@@ -15,7 +15,7 @@ namespace Pronia.Services.Interfaces
         Task<List<Product>> GetLatestProducts();
         Task<List<Product>> GetNewProducts();
 
-         Task<List<Product>> GetPaginatedDatas(int page, int take);
+         Task<List<Product>> GetPaginatedDatas(int page, int take, int? cateId);
 
 
 
