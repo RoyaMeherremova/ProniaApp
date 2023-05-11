@@ -17,5 +17,7 @@ namespace Pronia.Services
         }
      
         public async Task<List<Color>> GetColors() => await _context.Colors.Include(m=>m.Products).Where(m => !m.SofDelete).ToListAsync();
+
+        public async Task<Color> GetColordById(int? id) => await _context.Colors.Where(m => !m.SofDelete).FirstOrDefaultAsync(m => m.Id == id);
     }
 }
