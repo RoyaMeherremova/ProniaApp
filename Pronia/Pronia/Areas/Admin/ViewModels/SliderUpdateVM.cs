@@ -6,6 +6,7 @@ namespace Pronia.Areas.Admin.ViewModels
     {
          public string Image { get; set; }
         public IFormFile Photo { get; set; }
+
         [Required]
         public string Tittle { get; set; }
         [Required]

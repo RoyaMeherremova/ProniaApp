@@ -17,7 +17,6 @@ namespace Pronia.Areas.Admin.Controllers
         private readonly IAdvertisingService _advertisingService;
         public AdvertisingController(AppDbContext context,
                              IWebHostEnvironment env,
-                             ISliderService slider,
                              IAdvertisingService advertisingService)
         {
 
@@ -34,7 +33,7 @@ namespace Pronia.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -64,7 +63,7 @@ namespace Pronia.Areas.Admin.Controllers
                 //if (!advertising.Photo.CheckFileSize(200))
                 //{
                 //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                //    return View(slider);
+                //    return View(advertising);
 
                 //}
 
@@ -194,6 +193,11 @@ namespace Pronia.Areas.Admin.Controllers
                     Description = dbAdvertising.Description,
 
                 };
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
                 if (advertising.Photo != null)
                 {
                     if (!advertising.Photo.CheckFileType("image/"))

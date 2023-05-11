@@ -13,6 +13,8 @@ namespace Pronia.Services
         {
             _context = context;
         }
+        
+        public async Task<Client> GetClientById(int? id) =>  await _context.Clients.Where(m => !m.SofDelete).FirstOrDefaultAsync(m => m.Id == id);
 
         public async Task<List<Client>> GetClients() => await _context.Clients.ToListAsync();
 

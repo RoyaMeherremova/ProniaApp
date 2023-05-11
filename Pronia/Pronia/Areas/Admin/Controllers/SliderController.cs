@@ -32,7 +32,7 @@ namespace Pronia.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -185,6 +185,10 @@ namespace Pronia.Areas.Admin.Controllers
                     Description = dbSlider.Description,
                     Offer = dbSlider.Offer,
                 };
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
                 if (slider.Photo != null)
                 {
                     if (!slider.Photo.CheckFileType("image/"))
