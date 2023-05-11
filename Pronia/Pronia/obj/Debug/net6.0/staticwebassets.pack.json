@@ -1109,6 +1109,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\1.png"
     },
     {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\1aea04e1-d48f-42a0-8ba4-88b0fcccfcc6_cameras.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\1aea04e1-d48f-42a0-8ba4-88b0fcccfcc6_cameras.png"
+    },
+    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\1ec9e495-7e81-4601-a352-e7d034a2e1dc avatar-3.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\1ec9e495-7e81-4601-a352-e7d034a2e1dc avatar-3.png"
     },
@@ -1137,12 +1141,44 @@
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\2.png"
     },
     {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\2240fd5d-0ff4-4361-b1f2-6eeb79510803_cameras.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\2240fd5d-0ff4-4361-b1f2-6eeb79510803_cameras.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\2fbaf792-35b5-4d87-880f-aee371701cdd_avatar-3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\2fbaf792-35b5-4d87-880f-aee371701cdd_avatar-3.png"
+    },
+    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\3.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\3.png"
     },
     {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\3a0e527d-9a4a-423c-9885-8bfdc5ea29a5_avatar-3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\3a0e527d-9a4a-423c-9885-8bfdc5ea29a5_avatar-3.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\3b03ca7f-be2d-4fdd-b057-d34cc05cddd2_blac-logo-sophia.jfif",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\3b03ca7f-be2d-4fdd-b057-d34cc05cddd2_blac-logo-sophia.jfif"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\53361930-69fb-49cd-b644-d89806a0a58a_cameras.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\53361930-69fb-49cd-b644-d89806a0a58a_cameras.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\76320085-84be-4c9b-baeb-d8f8b402026e_blac-logo-sophia.jfif",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\76320085-84be-4c9b-baeb-d8f8b402026e_blac-logo-sophia.jfif"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\881a2fe9-41b7-4bb3-971f-d8b50f99e1ce_avatar-3.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\881a2fe9-41b7-4bb3-971f-d8b50f99e1ce_avatar-3.png"
+    },
+    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\a2f92786-5b47-4870-a700-ce53289f5f81 avatar-3.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\a2f92786-5b47-4870-a700-ce53289f5f81 avatar-3.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\a7c81440-2260-4946-8745-a1d4583e5e39_blac-logo-sophia.jfif",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\a7c81440-2260-4946-8745-a1d4583e5e39_blac-logo-sophia.jfif"
     },
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\c5360b6a-4779-418e-924f-fba3008f2686 707e74cd-f654-45eb-9fe2-5a75308b4c83.jfif",
@@ -1155,6 +1191,14 @@
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\card.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\card.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\ce7f2261-a668-44dc-a4c4-68efad0c936c_cameras.png",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\ce7f2261-a668-44dc-a4c4-68efad0c936c_cameras.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\d446804e-c6ab-47b6-ab9f-27128ed25cd3_707e74cd-f654-45eb-9fe2-5a75308b4c83.jfif",
+      "PackagePath": "staticwebassets\\assets\\images\\website-images\\d446804e-c6ab-47b6-ab9f-27128ed25cd3_707e74cd-f654-45eb-9fe2-5a75308b4c83.jfif"
     },
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\dark.png",

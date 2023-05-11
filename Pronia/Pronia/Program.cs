@@ -49,6 +49,7 @@ builder.Services.AddScoped<IAdvertisingService, AdvertisingService>();
 builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

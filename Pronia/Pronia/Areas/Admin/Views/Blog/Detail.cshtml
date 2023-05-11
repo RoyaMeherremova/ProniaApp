@@ -1,0 +1,57 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container my-5">
+    
+
+    <div class="images">
+        <h1 class="text-center"> Blog detail</h1>
+      @foreach (var blogImage in Model.Images)
+                {
+                <img src="~/assets/images/website-images//@blogImage.Image" style="width:150px;height:100px" alt="image" />
+                }
+      </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+             
+                <th>
+                    Tittle
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Author
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td class="py-1">
+                    @Model.Tittle
+
+                </td>
+
+                <td class="py-1">
+                    @Html.Raw(Model.Description)
+                </td>
+                <td class="py-1">
+                    @Model.Author.Name
+
+                </td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+    <a class="btn btn-info mt-3" asp-action="Index">Back</a>
+</div>

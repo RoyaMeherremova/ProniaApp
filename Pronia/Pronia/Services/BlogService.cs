@@ -29,11 +29,17 @@ namespace Pronia.Services
 
 
         public async Task<List<Blog>> GetBlogs() => await _context.Blogs.Where(m => !m.SofDelete)
-                                                                   .Include(m=>m.Images)
+                                                                   .Include(m => m.Images)
                                                                    .Include(m => m.Author)
                                                                    .Include(m => m.Comments)
                                                                    .ToListAsync();
-        
+
+        public async Task<Blog> GetBlogdById(int? id) => await _context.Blogs.Include(m => m.Images)
+                                                                            .Include(m => m.Author)
+                                                                            .Include(m => m.Comments)
+                                                                            .Where(m => !m.SofDelete)
+                                                                            .FirstOrDefaultAsync(m => m.Id == id);
+     
     }
 }
 
