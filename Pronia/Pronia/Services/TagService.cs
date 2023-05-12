@@ -15,6 +15,8 @@ namespace Pronia.Services
         }
        
         public async Task<List<Tag>> GetAllAsync() => await _context.Tags.Include(m=>m.ProductTags).Where(m=>!m.SofDelete).ToListAsync();
-      
+
+        public async Task<Tag> GetTagById(int? id) => await _context.Tags.Include(m => m.ProductTags).Where(m => !m.SofDelete).FirstOrDefaultAsync(m => m.Id == id);
+
     }
 }

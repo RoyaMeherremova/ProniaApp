@@ -1,35 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Areas.Admin.ViewModels;
-using Pronia.Areas.Helpers;
 using Pronia.Data;
 using Pronia.Models;
-using Pronia.Services;
 using Pronia.Services.Interfaces;
-using System.Net;
+using System.Drawing;
 
 namespace Pronia.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ColorController : Controller
+    public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IColorService _colorService;
-        public ColorController(AppDbContext context,
-                             IColorService colorService)
-
+        private readonly IWebHostEnvironment _env;
+        private readonly ICategoryService _categoryService;
+        public CategoryController(AppDbContext context,
+                             IWebHostEnvironment env,
+                             ICategoryService categoryService)
         {
 
             _context = context;
-            _colorService = colorService
-;
+            _env = env;
+            _categoryService = categoryService;
         }
-
-
         public async Task<IActionResult> Index()
         {
-            List<Color> colors = await _colorService.GetColors();
-            return View(colors);
+            List<Category> categories = await _categoryService.GetCategories();
+            return View(categories);
         }
+
 
 
         [HttpGet]
@@ -38,41 +36,60 @@ namespace Pronia.Areas.Admin.Controllers
             return View();
         }
 
-        //CREATE
+
+        //CREATE ADVERTISING
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ColorCreateVM color)
+        public async Task<IActionResult> Create(CategoryCreateVM category)
         {
+
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(color);
+                    return View(category);
                 }
-                Color newColor = new()
+
+                Category newCategory = new()
                 {
-                    Name = color.Name,
+                    Name = category.Name,
+
                 };
-                await _context.Colors.AddAsync(newColor);
+                await _context.Categories.AddAsync(newCategory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+
             }
             catch (Exception ex)
             {
-
                 ViewBag.error = ex.Message;
-                return View();
+                throw;
             }
+
         }
 
+
+
+
+        //DETAIL
+        [HttpGet]
         public async Task<IActionResult> Detail(int? id)
         {
+
             if (id == null) return BadRequest();
-            Color color = await _colorService.GetColorById(id);
-            if (color is null) return NotFound();
-            return View(color);
+
+            Category category = await _categoryService.GetCategoryByIdAsync(id);    
+
+            if (category == null) return NotFound();
+
+            return View(category);
         }
 
+
+
+
+
+        //-------DELETE-------
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
@@ -81,14 +98,75 @@ namespace Pronia.Areas.Admin.Controllers
             {
                 if (id == null) return BadRequest();
 
-                Color dbColor = await _colorService.GetColorById(id);
+                Category dbCategory = await _categoryService.GetCategoryByIdAsync(id);
 
-                if (dbColor is null) return NotFound();
+                if (dbCategory == null) return NotFound();
 
-                _context.Colors.Remove(dbColor);
-
+                _context.Categories.Remove(dbCategory);
                 await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
 
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                throw;
+            }
+
+
+        }
+
+
+
+
+        //-----------UPDATE-----------
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return BadRequest();
+
+            Category dbCategory = await _categoryService.GetCategoryByIdAsync(id);
+
+            if (dbCategory == null) return NotFound();
+
+
+            CategoryUpdateVM model = new()
+            {
+                Name = dbCategory.Name,
+
+            };
+            return View(model);
+
+        }
+
+        //-----------UPDATE-----------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, CategoryUpdateVM categoryUpdate)
+        {
+
+            try
+            {
+                if (id == null) return BadRequest();
+
+                Category dbCategory = await _categoryService.GetCategoryByIdAsync(id);
+
+                if (dbCategory == null) return NotFound();
+
+
+                CategoryUpdateVM model = new()
+                {
+                    Name = dbCategory.Name,
+
+                };
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                dbCategory.Name = categoryUpdate.Name;
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -96,65 +174,8 @@ namespace Pronia.Areas.Admin.Controllers
                 ViewBag.error = ex.Message;
                 return View();
             }
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return BadRequest();
-            Color dbColor = await _colorService.GetColorById(id);
-            if (dbColor is null) return NotFound();
-
-            ColorUpdateVM model = new()
-            {
-                Name = dbColor.Name,
-            };
-
-            return View(model);
 
         }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, ColorUpdateVM colorUpdate)
-        {
-            try
-            {
-
-                if (id == null) return BadRequest();
-
-                Color dbColor = await _colorService.GetColorById(id);
-
-                if (dbColor is null) return NotFound();
-
-                ColorUpdateVM model = new()
-                {
-                    Name = dbColor.Name,
-                };
-
-
-                if (!ModelState.IsValid)
-                {
-                    return View(model);
-                }
-
-
-
-                dbColor.Name = colorUpdate.Name;
-
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                @ViewBag.error = ex.Message;
-                return View();
-            }
-        }
-
 
     }
 }

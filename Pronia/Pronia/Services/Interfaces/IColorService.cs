@@ -7,6 +7,6 @@ namespace Pronia.Services.Interfaces
     {
         Task<List<Color>> GetColors();
 
-        Task<Color> GetColordById(int? id);
+        Task<Color> GetColorById(int? id);
     }
 }
