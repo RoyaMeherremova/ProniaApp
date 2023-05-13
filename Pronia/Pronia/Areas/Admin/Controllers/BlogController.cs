@@ -74,12 +74,12 @@ namespace Pronia.Areas.Admin.Controllers
                         ModelState.AddModelError("Photo", "File type must be image");
                         return View(blog);
                     }
-                    //if (!photo.CheckFileSize(200))
-                    //{
-                    //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                    //    return View(blog);
+                    if (!photo.CheckFileSize(500))
+                    {
+                        ModelState.AddModelError("Photo", "Image size must be max 200kb");
+                        return View(blog);
 
-                    //}
+                    }
                 }
 
                 List<BlogImage> blogImages = new();

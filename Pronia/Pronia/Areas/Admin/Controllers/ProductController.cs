@@ -39,9 +39,9 @@ namespace Pronia.Areas.Admin.Controllers
             _colorService = colorService;
         }
         //INDEX
-        public async Task<IActionResult> Index(int page = 1,int take = 5,int? cateId = null)
+        public async Task<IActionResult> Index(int page = 1,int take = 5,int? cateId = null, int? tagId = null)
         {
-            List<Product> products = await _productService.GetPaginatedDatas(page, take, cateId);
+            List<Product> products = await _productService.GetPaginatedDatas(page, take, cateId,tagId);
 
             List<ProductListVM> mappedDatas =  GetMappedDatas(products);
 
@@ -64,8 +64,8 @@ namespace Pronia.Areas.Admin.Controllers
                     Id = product.Id,
                     Name = product.Name,
                     Price = product.Price,
+                    MainImage = product.Images.FirstOrDefault(m=>m.IsMain).Image,
                     SKU= product.SKU,
-                    MainImage = product.MainImage
 
                 };
                 mappedDatas.Add(productVM); 
@@ -83,32 +83,39 @@ namespace Pronia.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int? id)
         {
-
-            if (id == null) return BadRequest();
-
-            Product dbProduct = await _productService.GetFullDataById(id);  
-
-            if (dbProduct == null) return NotFound();
-
-            ProductDetailVM model = new()
+            try
             {
-                Name = dbProduct.Name,
-                Price = dbProduct.Price,
-                SKU= dbProduct.SKU,
-                MainImage = dbProduct.MainImage,
-                HoverImage = dbProduct.HoverImage,
-                Description = dbProduct.Description,
-                SaleCount= dbProduct.SaleCount,
-                StockCount= dbProduct.StockCount,
-                ProductCategories= dbProduct.ProductCategories,
-                ProductImages = dbProduct.Images,
-                ProductSizes= dbProduct.ProductSizes,
-                ProductTags = dbProduct.ProductTags,
-                ColorName = dbProduct.Color.Name,
-                Rate= dbProduct.Rate,
-            };
+                if (id == null) return BadRequest();
 
-            return View(model);
+                Product dbProduct = await _productService.GetFullDataById(id);
+
+                if (dbProduct == null) return NotFound();
+
+                ProductDetailVM model = new()
+                {
+                    Name = dbProduct.Name,
+                    Price = dbProduct.Price,
+                    SKU = dbProduct.SKU,
+                    Description = dbProduct.Description,
+                    SaleCount = dbProduct.SaleCount,
+                    StockCount = dbProduct.StockCount,
+                    ProductCategories = dbProduct.ProductCategories,
+                    ProductImages = dbProduct.Images,
+                    ProductSizes = dbProduct.ProductSizes,
+                    ProductTags = dbProduct.ProductTags,
+                    ColorName = dbProduct.Color.Name,
+                    Rate = dbProduct.Rate,
+                };
+
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         private async Task<SelectList> GetSizesAsync()
@@ -149,53 +156,23 @@ namespace Pronia.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCreateVM model)
         {
-            @ViewBag.colors = await GetColorsAsync();
-            @ViewBag.tags = await GetTagsAsync();
-            @ViewBag.sizes = await GetSizesAsync();
-            @ViewBag.categories = await GetCategoriessAsync();
-
+           
             try
             {
+                @ViewBag.colors = await GetColorsAsync();
+                @ViewBag.tags = await GetTagsAsync();
+                @ViewBag.sizes = await GetSizesAsync();
+                @ViewBag.categories = await GetCategoriessAsync();
+
                 if (!ModelState.IsValid) return View(model);
+
+
+
                 Product newProduct = new();
                 List<ProductImage> productImages = new();
                 List<ProductTag> productTags = new();
                 List<ProductSize> productSizes = new();
                 List<ProductCategory> productCategories = new();
-
-                if (!model.MainImage.CheckFileType("image/"))
-                {
-                    ModelState.AddModelError("Photo", "File type must be image");
-                    return View(model);
-                }
-                //if (!model.HoverImage.CheckFileSize(200))
-                //{
-                //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                //    return View(model);
-
-                //}
-                string mainImageFileName = Guid.NewGuid().ToString() + "_" + model.MainImage.FileName;
-
-                string mainImagePath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", mainImageFileName);
-
-                await FileHelper.SaveFileAsync(mainImagePath, model.MainImage);
-
-                if (!model.HoverImage.CheckFileType("image/"))
-                {
-                    ModelState.AddModelError("Photo", "File type must be image");
-                    return View(model);
-                }
-                //if (!model.MainImage.CheckFileSize(200))
-                //{
-                //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                //    return View(model);
-
-                //}
-                string hoverImageFileName = Guid.NewGuid().ToString() + "_" + model.HoverImage.FileName;
-
-                string hoverImagePath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", hoverImageFileName);
-
-                await FileHelper.SaveFileAsync(hoverImagePath, model.HoverImage);
 
                 foreach (var photo in model.Photos)
                 {
@@ -204,12 +181,12 @@ namespace Pronia.Areas.Admin.Controllers
                         ModelState.AddModelError("Photo", "File type must be image");
                         return View(model);
                     }
-                    //if (!photo.CheckFileSize(200))
-                    //{
-                    //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                    //    return View(model);
+                    if (!photo.CheckFileSize(500))
+                    {
+                        ModelState.AddModelError("Photo", "Image size must be max 200kb");
+                        return View(model);
 
-                    //}
+                    }
                 }
 
 
@@ -227,25 +204,10 @@ namespace Pronia.Areas.Admin.Controllers
                     };
 
                     productImages.Add(productImage);
-
-                   
                 }
-
-                var convertedPrice = decimal.Parse(model.Price);
-
-                Random random = new();
-
-                newProduct.Name = model.Name;
-                newProduct.Price = convertedPrice;
-                newProduct.SKU = model.Name.Substring(0,3) + "-" + random.Next();
-                newProduct.Description = model.Description;
-                newProduct.Rate = model.Rate;
-                newProduct.SaleCount = model.SaleCount;
-                newProduct.StockCount = model.StockCount;
-                newProduct.ColorId = model.ColorId;
-                newProduct.Rate = model.Rate;
-                newProduct.MainImage = mainImageFileName;
-                newProduct.HoverImage = hoverImageFileName;
+                newProduct.Images = productImages;
+                newProduct.Images.FirstOrDefault().IsMain = true;
+                newProduct.Images.Skip(1).FirstOrDefault().IsHover = true;
 
                 if (model.CategoryIds.Count > 0)
                 {
@@ -265,6 +227,8 @@ namespace Pronia.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("CategoryIds", "Don't be empty");
                 }
+
+
                 if (model.TagIds.Count > 0)
                 {
                     foreach (var item in model.TagIds)
@@ -303,6 +267,21 @@ namespace Pronia.Areas.Admin.Controllers
                     ModelState.AddModelError("SizeIds", "Don't be empty");
                 }
 
+                var convertedPrice = decimal.Parse(model.Price);
+
+                Random random = new();
+
+                newProduct.Name = model.Name;
+                newProduct.Price = convertedPrice;
+                newProduct.SKU = model.Name.Substring(0, 3) + "-" + random.Next();
+                newProduct.Description = model.Description;
+                newProduct.Rate = model.Rate;
+                newProduct.SaleCount = model.SaleCount;
+                newProduct.StockCount = model.StockCount;
+                newProduct.ColorId = model.ColorId;
+                newProduct.Rate = model.Rate;
+
+                await _context.ProductImages.AddRangeAsync(productImages);
                 await _context.Products.AddAsync(newProduct);
                 await _context.SaveChangesAsync();
 
@@ -315,6 +294,276 @@ namespace Pronia.Areas.Admin.Controllers
             }
 
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            try
+            {
+                @ViewBag.colors = await GetColorsAsync();
+                @ViewBag.tags = await GetTagsAsync();
+                @ViewBag.sizes = await GetSizesAsync();
+                @ViewBag.categories = await GetCategoriessAsync();
+                if (id == null) return BadRequest();
+
+                Product dbProduct = await _productService.GetFullDataById(id);
+                if (dbProduct == null) return NotFound();
+
+                ProductUpdateVM model = new()
+                {
+                    Id = dbProduct.Id,
+                    Name = dbProduct.Name,
+                    Description = dbProduct.Description,
+                    Rate = dbProduct.Rate,
+                    SKU = dbProduct.SKU,
+                    Images = dbProduct.Images.ToList(),
+                    SaleCount = dbProduct.SaleCount,
+                    StockCount = dbProduct.StockCount,
+                    Price = dbProduct.Price.ToString(),
+                    CategoryIds = dbProduct.ProductCategories.Select(m => m.Category.Id).ToList(),
+                    SizeIds = dbProduct.ProductSizes.Select(m => m.Size.Id).ToList(),
+                    TagIds = dbProduct.ProductTags.Select(m => m.Tag.Id).ToList(),
+                    ColorId = dbProduct.Color.Id,
+
+                };
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.error = ex.Message;
+                return View();
+            }
+            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int? id, ProductUpdateVM updatedProduct)
+        {
+            try
+            {
+                @ViewBag.colors = await GetColorsAsync();
+                @ViewBag.tags = await GetTagsAsync();
+                @ViewBag.sizes = await GetSizesAsync();
+                @ViewBag.categories = await GetCategoriessAsync();
+
+                if (id == null) return BadRequest();
+
+                Product dbProduct = await _productService.GetFullDataById(id);
+
+                if (dbProduct == null) return NotFound();
+
+                ProductUpdateVM model = new()
+                {
+                    Id = dbProduct.Id,
+                    Name = dbProduct.Name,
+                    SKU = dbProduct.SKU,
+                    Description = dbProduct.Description,
+                    Price = dbProduct.Price.ToString(),
+                    Rate = dbProduct.Rate,
+                    Images = dbProduct.Images.ToList(),
+                    SaleCount = dbProduct.SaleCount,
+                    StockCount = dbProduct.StockCount,
+                    CategoryIds = dbProduct.ProductCategories.Select(m => m.Category.Id).ToList(),
+                    SizeIds = dbProduct.ProductSizes.Select(m => m.Size.Id).ToList(),
+                    TagIds = dbProduct.ProductTags.Select(m => m.Tag.Id).ToList(),
+                    ColorId = dbProduct.Color.Id,
+
+                };
+
+                if (!ModelState.IsValid) return View(model);
+
+
+              
+                if (updatedProduct.Photos != null)
+                {
+                    foreach (var photo in updatedProduct.Photos)
+                    {
+                        if (!photo.CheckFileType("image/"))
+                        {
+                            ModelState.AddModelError("Photo", "File type must be image");
+                            return View(model);
+                        }
+                        if (!photo.CheckFileSize(200))
+                        {
+                            ModelState.AddModelError("Photo", "Image size must be max 200kb");
+                            return View(model);
+
+                        }
+                    }
+
+                    foreach (var photo in dbProduct.Images)
+                    {
+
+                        string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", photo.Image);
+
+                        FileHelper.DeleteFile(path);
+
+
+                    }
+           
+                    List<ProductImage> productImages = new();
+                 
+          
+                    foreach (var photo in updatedProduct.Photos)
+                    {
+                        string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+
+                        string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", fileName);
+
+                        await FileHelper.SaveFileAsync(path, photo);
+
+                        ProductImage productImage = new()
+                        {
+                            Image = fileName
+                        };
+
+                        productImages.Add(productImage);
+                    }
+                    dbProduct.Images = productImages;
+                    dbProduct.Images.FirstOrDefault().IsMain = true;
+                    dbProduct.Images.Skip(1).FirstOrDefault().IsHover = true;
+
+                    await _context.ProductImages.AddRangeAsync(productImages);
+                }
+                else
+                {
+                    Product newProduct = new()
+                    {
+                       Images= dbProduct.Images
+                    };
+                }
+
+
+                List<ProductCategory> productCategories = new();
+                if (updatedProduct.CategoryIds.Count > 0)
+                {
+                    foreach (var item in updatedProduct.CategoryIds)
+                    {
+
+                        ProductCategory productCategory = new()
+                        {
+                            CategoryId = item
+                        };
+
+                        productCategories.Add(productCategory);
+                    }
+                    dbProduct.ProductCategories = productCategories;
+                }
+                else
+                {
+                    updatedProduct.CategoryIds = dbProduct.ProductCategories.Select(p=>p.CategoryId).ToList();
+                }
+
+
+                List<ProductTag> productTags = new();
+
+                if (updatedProduct.TagIds.Count > 0)
+                {
+                    foreach (var item in updatedProduct.TagIds)
+                    {
+
+                        ProductTag productTag = new()
+                        {
+                            TagId = item
+                        };
+
+                        productTags.Add(productTag);
+                    }
+                    dbProduct.ProductTags = productTags;
+                }
+                else
+                {
+
+                    updatedProduct.TagIds = dbProduct.ProductTags.Select(p => p.Tag.Id).ToList();
+                }
+
+                List<ProductSize> productSizes = new();
+                if (updatedProduct.SizeIds.Count > 0)
+                {
+                    foreach (var item in updatedProduct.SizeIds)
+                    {
+
+                        ProductSize productSize = new()
+                        {
+                            SizeId = item
+                        };
+
+                        productSizes.Add(productSize);
+                    }
+                    dbProduct.ProductSizes = productSizes;
+                }
+                else
+                {
+                    updatedProduct.SizeIds = dbProduct.ProductSizes.Select(p => p.Size.Id).ToList();
+                }
+
+                var convertedPrice = decimal.Parse(updatedProduct.Price);
+
+                dbProduct.Name = updatedProduct.Name;
+                dbProduct.Price = convertedPrice;
+                dbProduct.SKU =updatedProduct.SKU;
+                dbProduct.Description = updatedProduct.Description;
+                dbProduct.Rate = updatedProduct.Rate;
+                dbProduct.SaleCount = updatedProduct.SaleCount;
+                dbProduct.StockCount = updatedProduct.StockCount;
+                dbProduct.ColorId = updatedProduct.ColorId;
+
+               
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                @ViewBag.error = ex.Message;
+                return View();
+            }
+           
+
+
+
+
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            try
+            {
+                if (id == null) return BadRequest();
+                  Product dbProduct = await _productService.GetFullDataById(id);
+                 if (dbProduct == null) return NotFound();
+
+                foreach (var photo in dbProduct.Images)
+                {
+
+                    string path = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", photo.Image);
+
+                    FileHelper.DeleteFile(path);
+                }
+
+                _context.Products.Remove(dbProduct);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
+
+
+        }
+
+
 
 
 

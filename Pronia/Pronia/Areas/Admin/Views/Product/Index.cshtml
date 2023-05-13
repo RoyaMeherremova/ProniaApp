@@ -23,9 +23,11 @@
                         Name
                     </th>
                     <th>
+                        SKU
+                    </th>
+                    <th>
                         Price
                     </th>
-
                     <th>
                         Operations
                     </th>
@@ -42,13 +44,13 @@
                         </td>
 
                         <td>
-                            <img src="~/assets/images/website-images//@product.MainImage" style="width=150px;height=150px;" />
+                            <img src="~/assets/images/website-images//@product.MainImage" style="width:150px;height:150px;" />
                         </td>
                         <td>
                             @product.Name
                         </td>
-                        <td>
-                            @Html.Raw(product.Price)
+                          <td>
+                            @product.SKU
                         </td>
                         <td>
                             @product.Price
@@ -57,7 +59,9 @@
                         <td style="display: flex; gap: 10px;">
                             <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@product.Id">Info</a>
                             <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                            <a class="btn btn-outline-primary" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                            <form asp-action="Delete" asp-route-id="@product.Id" method="post">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
 
                         </td>
 

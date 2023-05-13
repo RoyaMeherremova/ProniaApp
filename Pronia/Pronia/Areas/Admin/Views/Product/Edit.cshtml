@@ -1,0 +1,83 @@
+﻿@model ProductUpdateVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container my-5">
+    <div class="images">
+        <h4>Images</h4>
+        @foreach (var productImage in Model.Images)
+        {
+            <img src="~/assets/images/website-images//@productImage.Image" style="width:150px;height:100px" alt="image" />
+        }
+    </div>
+   
+    <form class="form-sample" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">Choose Photos</label>
+            <input class="form-control" id="customFile" asp-for="Photos" />
+            <span class="text-danger" asp-validation-for="Photos"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">Name</label>
+            <input class="form-control" id="customFile" asp-for="Name" />
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">Price</label>
+            <input class="form-control" id="customFile" asp-for="Price" />
+            <span class="text-danger" asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">Description</label>
+            <textarea class="form-control" id="advert-text" asp-for="Description" rows="5"></textarea>
+            <span class="text-danger" asp-validation-for="Description">@ViewBag.error</span>
+        </div>
+        <div class="mt-5">
+            <label for="formFile" class="form-label my-2">Color</label>
+            <select class="form-control" id="customFile" asp-for="ColorId" asp-items="@ViewBag.colors"></select>
+        </div>
+        <div class="mt-5">
+            <label for="formFile" class="form-label my-2">Size</label>
+            <select class="form-control" id="customFile" asp-for="SizeIds" asp-items="@ViewBag.sizes"></select>
+        </div>
+        <div class="mt-5">
+            <label for="formFile" class="form-label my-2">Tag</label>
+            <select class="form-control" id="customFile" asp-for="TagIds" asp-items="@ViewBag.tags"></select>
+        </div>
+        <div class="mt-5">
+            <label for="formFile" class="form-label my-2">AddCategory</label>
+            <select class="form-control" id="customFile" asp-for="CategoryIds" asp-items="@ViewBag.categories"></select>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">aleCount</label>
+            <input class="form-control" id="customFile" asp-for="SaleCount" />
+            <span class="text-danger" asp-validation-for="SaleCount"></span>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">StockCount</label>
+            <input class="form-control" id="customFile" asp-for="StockCount" />
+            <span class="text-danger" asp-validation-for="StockCount"></span>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label my-2">Rate count</label>
+            <input class="form-control" id="customFile" asp-for="Rate" />
+            <span class="text-danger" asp-validation-for="Rate"></span>
+        </div>
+        <div class="buttons my-3">
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <a class="btn btn-light" asp-action="Index">Cancel</a>
+        </div>
+
+
+    </form>
+
+</div>
+
+@section Scripts{
+    <script src="~/Admin/ckeditor/ckeditor.js"></script>
+
+}

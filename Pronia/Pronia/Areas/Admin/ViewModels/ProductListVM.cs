@@ -6,7 +6,6 @@ namespace Pronia.Areas.Admin.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         public string MainImage { get; set; }
         public string SKU { get; set; } 
         public decimal Price { get; set; }

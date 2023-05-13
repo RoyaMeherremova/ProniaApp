@@ -22,7 +22,7 @@
                         <span class="offer">@slider.Offer</span>
                         <h2 class="title">@slider.Tittle</h2>
                         <p class="short-desc">
-                          @slider.Description
+                          @Html.Raw(slider.Description)
                         </p>
                         <div class="btn-wrap">
                           <a
@@ -160,14 +160,12 @@
                       <div class="product-item">
                         <div class="product-img">
                            <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@featurProduct.Id">
-                            <img
-                              class="primary-img"
-                              src="~/assets/images/website-images//@featurProduct.MainImage"
-                              alt="Product Images"
+                            <img src="~/assets/images/website-images//@featurProduct.Images.FirstOrDefault(m => m.IsMain).Image"
+                              alt="Inner Image"
                             />
                             <img
                               class="secondary-img"
-                              src="~/assets/images/website-images//@featurProduct.HoverImage"
+                              src="~/assets/images/website-images//@featurProduct.Images.FirstOrDefault(m => m.IsHover).Image"
                               alt="Product Images"
                             />
                           </a>
@@ -256,13 +254,13 @@
                             {
                                 <div class="col-xl-3 col-md-4 col-sm-6">
                                     <div class="product-item">
-                                        <div class="product-img">
+                                       <div class="product-img">
                                             <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@bestsel.Id">
                                                 <img class="primary-img"
-                                                 src="~/assets/images/website-images//@bestsel.MainImage"
+                                                 src="~/assets/images/website-images//@bestsel.Images.FirstOrDefault(m=>m.IsMain).Image"
                                                  alt="Product Images" />
                                                 <img class="secondary-img"
-                                                 src="~/assets/images/website-images//@bestsel.HoverImage"
+                                                 src="~/assets/images/website-images//@bestsel.Images.FirstOrDefault(m=>m.IsHover).Image"
                                                  alt="Product Images" />
                                             </a>
                                             <div class="product-add-action">
@@ -338,7 +336,7 @@
                   role="tabpanel"
                   aria-labelledby="latest-tab"
                 >
-                  <div class="product-item-wrap row">
+                   <div class="product-item-wrap row">
                             @foreach(var latest in Model.LatestProduct.Take(8))
                             {
                                  <div class="col-xl-3 col-md-4 col-sm-6">
@@ -347,12 +345,12 @@
                             <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@latest.Id">
                             <img
                               class="primary-img"
-                              src="~/assets/images/website-images//@latest.MainImage"
+                               src="~/assets/images/website-images//@latest.Images.FirstOrDefault(m=>m.IsMain).Image"
                               alt="Product Images"
                             />
                             <img
                               class="secondary-img"
-                              src="~/assets/images/website-images//@latest.HoverImage"
+                               src="~/assets/images/website-images//@latest.Images.FirstOrDefault(m=>m.IsHover).Image"
                               alt="Product Images"
                             />
                           </a>
@@ -543,13 +541,13 @@
                         @foreach(var newProduct in Model.NewProducts)
                         {
                             <div class="swiper-slide product-item">
-                                <div class="product-img">
+                               <div class="product-img">
                                     <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@newProduct.Id">
                                         <img class="primary-img"
-                                         src="~/assets/images/website-images//@newProduct.MainImage"
+                                         src="~/assets/images/website-images//@newProduct.Images.FirstOrDefault(m=>m.IsMain).Image"
                                          alt="Product Images" />
                                         <img class="secondary-img"
-                                         src="~/assets/images/website-images//@newProduct.HoverImage"
+                                         src="~/assets/images/website-images//@newProduct.Images.FirstOrDefault(m=>m.IsHover).Image"
                                          alt="Product Images" />
                                     </a>
                                     <div class="product-add-action">
@@ -760,5 +758,5 @@
           </div>
         </div>
       </div>
-      <!-- Blog Area End Here -->
+
 

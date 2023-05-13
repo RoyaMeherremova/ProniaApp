@@ -459,13 +459,13 @@
                             {
                            
                                     <div class="swiper-slide product-item">
-                                        <div class="product-img">
+                                       <div class="product-img">
                                             <a asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">
                                                 <img class="primary-img"
-                                             src="~/assets/images/website-images/@relatedProduct.MainImage"
+                                             src="~/assets/images/website-images/@relatedProduct.Images.FirstOrDefault(m=>m.IsMain).Image"
                                                  alt="Product Images" />
                                                 <img class="secondary-img"
-                                             src="~/assets/images/website-images/@relatedProduct.HoverImage"
+                                             src="~/assets/images/website-images/@relatedProduct.Images.FirstOrDefault(m=>m.IsMain).Image"
                                                  alt="Product Images" />
                                             </a>
                                             <div class="product-add-action">
@@ -509,8 +509,7 @@
                                             </div>
                                         </div>
                                         <div class="product-content">
-                                            <a class="product-name"
-                                       asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">@relatedProduct.Name</a>
+                                        <a class="product-name" asp-action="ProductDetail" asp-route-id="@relatedProduct.Id">@relatedProduct.Name</a>
                                             <div class="price-box pb-1">
                                             <span class="new-price">$@relatedProduct.Price</span>
                                             </div>

@@ -31,10 +31,10 @@ namespace Pronia.Controllers
             _advertisingService = advertisingService;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int take = 5, int? cateId = null)
+        public async Task<IActionResult> Index(int page = 1, int take = 5, int? cateId = null, int? tagId = null)
         {
 
-            List<Product> paginateProducts = await _productService.GetPaginatedDatas(page, take, cateId);
+            List<Product> paginateProducts = await _productService.GetPaginatedDatas(page, take, cateId,tagId);
             int pageCount = await GetPageCountAsync(take);
             Paginate<Product> paginatedDatas = new(paginateProducts, page, pageCount);
            
@@ -57,13 +57,10 @@ namespace Pronia.Controllers
         }
 
 
-
-
         //PRODUCT BY CATEGORY
         public async Task<IActionResult> GetProductsByCategory(int? id)
         {
-            List<Product> products = await _context.ProductCategories.Where(m => m.Category.Id == id).Select(m => m.Product).ToListAsync();
-
+            List<Product> products = await _context.ProductCategories.Include(pc=>pc.Product).ThenInclude(p=>p.Images).Where(m => m.Category.Id == id).Select(m => m.Product).ToListAsync();
             return PartialView("_ProductsPartial", products);
         }
 
@@ -78,14 +75,12 @@ namespace Pronia.Controllers
         public async Task<IActionResult> GetProductsByColor(int? id)
         {
             List<Product> products = await _context.Products.Include(m => m.Color).Where(m => m.Color.Id == id).ToListAsync();
-
             return PartialView("_ProductsPartial", products);
         }
 
         private async Task<int> GetPageCountAsync(int take)  
         {
             var productCount = await _productService.GetCountAsync();  
-
             return (int)Math.Ceiling((decimal)productCount / take);  
         }
 
@@ -149,7 +144,7 @@ namespace Pronia.Controllers
 
         public async Task<IActionResult> GetProductsByTag(int? id)
         {
-            List<Product> products = await _context.ProductTags.Where(m => m.Tag.Id==id).Select(m=>m.Product).ToListAsync();
+            List<Product> products = await _context.ProductTags.Include(pc => pc.Product).ThenInclude(p => p.Images).Where(m => m.Tag.Id == id).Select(m=>m.Product).ToListAsync();
 
             return PartialView("_ProductsPartial", products);
         }

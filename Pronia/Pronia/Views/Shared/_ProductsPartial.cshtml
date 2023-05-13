@@ -5,15 +5,15 @@
 {
    <div class="col-md-4 col-sm-6">
     <div class="product-item" >
-        <div class="product-img">
-            <a asp-controller="shop" asp-action="ProductDetail" asp-route-id="@product.Id">
-                <img class="primary-img"
-                     src="~/assets/images/website-images/@product.MainImage"
+      <div class="product-img">
+                <a asp-controller="Shop" asp-action="ProductDetail" asp-route-id="@product.Id">
+                    <img class="primary-img"
+                     src="~/assets/images/website-images/@product.Images.FirstOrDefault(m=>m.IsMain).Image"
                      alt="Product Images" />
-                <img class="secondary-img"
-                     src="~/assets/images/website-images/@product.HoverImage"
+                    <img class="secondary-img"
+                     src="~/assets/images/website-images/@product.Images.FirstOrDefault(m=>m.IsHover).Image"
                      alt="Product Images" />
-            </a>
+                </a>
             <div class="product-add-action">
                 <ul>
                     <li>

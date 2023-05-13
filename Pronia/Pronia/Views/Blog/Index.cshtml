@@ -107,7 +107,7 @@
                                     @foreach (var tag in Model.Tags)
                                     {
                                         <li>
-                                            <a href="#" data-id="@tag.Id" class="tag">@tag.Name</a>
+                                            <a asp-controller="Shop" asp-action="index" asp-route-tagId="@tag.Id" data-id="@tag.Id" class="tag">@tag.Name</a>
                                         </li>
                                     }
                                 </ul>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="banner-item widgets-banner img-hover-effect">
                             <div class="banner-img">
-                                <img src="~/assets/images/website-images/@Model.NewProducts.FirstOrDefault().MainImage"
+                                <img src="~/assets/images/website-images/@Model.NewProducts.FirstOrDefault().Images.FirstOrDefault(m=>m.IsMain).Image"
                                      alt="Banner Image" />
                             </div>
                             <div class="banner-content text-position-center">
@@ -131,7 +131,7 @@
                 </div>
                 <div class="col-xl-9 col-lg-8 order-1">
                     <div class="blog-item-wrap row g-y-30">
-                        @foreach (var blog in Model.Blogs.Skip(3))
+                        @foreach (var blog in Model.PaginatedDatas.Datas)
                         {
                             <div class="col-md-6">
                                 <div class="blog-item">
@@ -228,18 +228,18 @@
                     <div class="pagination-area">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                                <li class="page-item @(Model.PaginatedDatas.HasPrevious? "" :"disabled")">
+                                <li class="page-item  @(Model.PaginatedDatas.HasPrevious? "active" :"disabled")">
                                     <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginatedDatas.CurrentPage -1)" tabindex="-1" aria-label="Previous"><<</a>
                                 </li>
 
                                 @for (int i = 1; i <= Model.PaginatedDatas.TotalPage; i++)
                                 {
 
-                                    <li class="page-item  @(Model.PaginatedDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link"  asp-action="Index" asp-route-page="@i">@i</a></li>
+                                    <li class="page-item active @(Model.PaginatedDatas.CurrentPage == i ? "disabled" : "")"><a class="page-link"  asp-action="Index" asp-route-page="@i">@i</a></li>
 
                                 }
 
-                                <li class="page-item @(Model.PaginatedDatas.HasNext? "" :"disabled")">
+                                <li class="page-item @(Model.PaginatedDatas.HasNext? "active" :"disabled")">
                                     <a class="page-link" asp-action="Index" asp-route-page="@(Model.PaginatedDatas.CurrentPage +1)" aria-label="Next">>></a>
                                 </li>
                             </ul>

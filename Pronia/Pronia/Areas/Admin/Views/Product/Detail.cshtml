@@ -4,18 +4,13 @@
 }
 
 <div class="container my-5">
-    <div class="form-group d-flex" style="gap:5px;">
-        <div>
-            <p class="my-2">HoverImage</p>
-            <img src="~/assets/images/website-images//@Model.HoverImage" style="width: 150px; height: 150px;" />
-        </div>
-        <div>
-            <p class="my-2">MainImage</p>
-            <img src="~/assets/images/website-images//@Model.MainImage" style="width: 150px; height: 150px;" />
-        </div>
+    <div class="images">
+        <h4>Images</h4>
+           @foreach (var productImage in Model.ProductImages)
+        {
+        <img src="~/assets/images/website-images//@productImage.Image" style="width:150px;height:100px" alt="image" />
+        }
     </div>
-
-  
 
     <div class="form-group">
         <label class="my-2">Name</label>
@@ -38,7 +33,7 @@
     </div>
     <div class="form-group">
         <label class="my-2">Description</label>
-        <textarea class="form-control" disabled id="advert-text" asp-for="Description" rows="8"></textarea>
+        <textarea class="form-control" disabled id="advert-text" asp-for="Description" rows="6"></textarea>
     </div>
     <div class="form-group">
         <label class="my-2">Price</label>
@@ -78,13 +73,7 @@
         <input class="form-control" disabled id="customFile" value="@Model.ColorName" />
     </div>
 
-   <div class="images">
-        <h4> All Images</h4>
-        @foreach (var productImage in Model.ProductImages)
-        {
-            <img src="~/assets/images/website-images//@productImage.Image" style="width:150px;height:100px" alt="image" />
-        }
-      </div>
+
     <div class="form-group">
         <div class="buttons my-3">
             <a class="btn btn-info" asp-action="Index">Cancel</a>

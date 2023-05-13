@@ -56,12 +56,44 @@ namespace Pronia.Controllers
            
             return View(model);
         }
+        
         private async Task<int> GetPageCountAsync(int take)
         {
             var blogCount = await _blogService.GetCountAsync();
 
             return (int)Math.Ceiling((decimal)blogCount / take);
         }
+
+
+        //SEARCH
+        public async Task<IActionResult> Search(string searchText)
+        {
+            List<Product> products = await _context.Products.Include(m => m.Images)
+                                            .Include(m => m.ProductCategories)
+                                            .Include(m => m.ProductSizes)
+                                            .Include(m => m.ProductTags)
+                                            .Include(m => m.Comments)
+                                            .Where(m => m.Name.ToLower().Contains(searchText.ToLower()))
+                                            .Take(5)
+                                            .ToListAsync();
+            return PartialView("_SearchPartial", products);
+        }
+
+        
+            public async Task<IActionResult> BlogDetail(int? id)
+            {
+                Blog blog = await _blogService.GetBlogdById((int) id);
+                Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+                BlogDetailVM model = new()
+                {
+                    BlogDt = blog,
+                    HeaderBackgrounds = headerBackgrounds,
+
+                };
+
+                return View(model);
+            }
+        
 
     }
 }

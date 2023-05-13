@@ -4,16 +4,20 @@
     $(document).on("click", ".category", function (e) {
 
         e.preventDefault();
-        let colorId = $(this).attr("data-id");
-        let parent = $(".product-grid-view")
+        let categoryId = $(this).attr("data-id");
+        let parent = $(".product-grid-view");
+
         $.ajax({
 
-            url: `shop/GetProductsByCategory?id=${colorId}`,
+            url: `shop/GetProductsByCategory?id=${categoryId}`,
+
             type: "Get",
 
             success: function (res) {
+                console.log(res)
                 $(parent).html(res);
             }
+           
         })
 
 
