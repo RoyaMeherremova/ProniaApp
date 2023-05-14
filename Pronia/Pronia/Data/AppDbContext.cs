@@ -26,8 +26,6 @@ namespace Pronia.Data
 
         public DbSet<Color> Colors { get; set; }
 
-        public DbSet<Comment> Comments { get; set; }
-
         public DbSet<HeaderBackground> HeaderBackgrounds { get; set; }
 
         public DbSet<Product> Products { get; set; }
@@ -48,8 +46,13 @@ namespace Pronia.Data
 
         public DbSet<Social> Socials { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ProductComment> ProductComments { get; set; }
 
+        public DbSet<BlogComment> BlogComments { get; set; }
 
+        public DbSet<Basket> Baskets { get; set; }
+
+        public DbSet<ProductBasket> ProductBaskets { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

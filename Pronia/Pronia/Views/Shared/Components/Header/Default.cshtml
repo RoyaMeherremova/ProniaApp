@@ -1,5 +1,7 @@
 ﻿@model LayoutVM
-   
+ @inject UserManager<AppUser> userManager;
+ 
+
 <header class="main-header-area">
     <div class="header-top bg-pronia-primary d-none d-lg-block">
         <div class="container">
@@ -82,14 +84,28 @@
                                             aria-expanded="false">
                                         <i class="pe-7s-users"></i>
                                     </button>
-                                    <ul class="dropdown-menu"
+                             <ul class="dropdown-menu"
                                         aria-labelledby="settingButton">
-                                        <li>
-                                            <a class="dropdown-item" href="my-account.html">My account</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="login-register.html">Login | Register</a>
-                                        </li>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <li class="nav-item">
+                                                <form asp-controller="Account" asp-action="Logout" asp-route-userId="@userManager.Users.Where(m=>m.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
+                                                    <button style="border:none; color: black" type="submit" class="nav-link">Logout</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="my-account.html">@User.Identity.Name</a>
+                                            </li>
+                                        }else{
+                                            <li>
+                                                <a class="nav-link" style="color: black" asp-controller="Account" asp-action="Login">Login</a>
+                                            </li>
+
+                                            <li>
+                                                <a class="nav-link" style="color: black" asp-controller="Account" asp-action="Register">Register</a>
+                                            </li>
+                                        }
+                                       
                                     </ul>
                                 </li>
                                 <li class="d-none d-lg-block">
@@ -100,7 +116,7 @@
                                 <li class="minicart-wrap me-3 me-lg-0">
                                     <a href="#miniCart" class="minicart-btn toolbar-btn">
                                         <i class="pe-7s-shopbag"></i>
-                                        <span class="quantity">3</span>
+                                        <span class="quantity">0</span>
                                     </a>
                                 </li>
                                 <li class="mobile-menu_wrap d-block d-lg-none">
@@ -411,7 +427,7 @@
                                 <li class="minicart-wrap me-3 me-lg-0">
                                     <a href="#miniCart" class="minicart-btn toolbar-btn">
                                         <i class="pe-7s-shopbag"></i>
-                                        <span class="quantity">3</span>
+                                        <span class="quantity">0</span>
                                     </a>
                                 </li>
                                 <li class="mobile-menu_wrap d-block d-lg-none">
@@ -476,14 +492,30 @@
                                     aria-expanded="false">
                                 <i class="pe-7s-users"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="settingButtonTwo">
-                                <li>
-                                    <a class="dropdown-item" href="my-account.html">My account</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="login-register.html">Login | Register</a>
-                                </li>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="settingButton">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <form asp-controller="Account" asp-action="Logout" asp-route-userId="@userManager.Users.Where(m=>m.UserName==User.Identity.Name).FirstOrDefault().Id" method="post">
+                                            <button style="border:none; color: black" type="submit" class="nav-link">Logout</button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="my-account.html">@User.Identity.Name</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a class="nav-link" style="color: black" asp-controller="Account" asp-action="Login">Login</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link" style="color: black" asp-controller="Account" asp-action="Register">Register</a>
+                                    </li>
+                                }
+
                             </ul>
                         </li>
                         <li>
@@ -678,7 +710,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="about.html">
+                                <a asp-controller="About" asp-action="Index">
                                     <span class="mm-text">About Us</span>
                                 </a>
                             </li>
@@ -774,7 +806,7 @@
                     </a>
                 </div>
                 <ul class="minicart-list">
-                    <li class="minicart-product">
+                  @*  <li class="minicart-product">
                         <a class="product-item_remove" href="#">
                             <i class="pe-7s-close"
                                data-tippy="Remove"
@@ -787,7 +819,7 @@
                         <a href="single-product-variable.html"
                            class="product-item_img">
                             <img class="img-full"
-                                 src="~/assets/images/product/small-size/2-1-70x78.png"
+                                 src="assets/images/product/small-size/2-1-70x78.png"
                                  alt="Product Image" />
                         </a>
                         <div class="product-item_content">
@@ -795,51 +827,8 @@
                                href="single-product-variable.html">American Marigold</a>
                             <span class="product-item_quantity">1 x $23.45</span>
                         </div>
-                    </li>
-                    <li class="minicart-product">
-                        <a class="product-item_remove" href="#">
-                            <i class="pe-7s-close"
-                               data-tippy="Remove"
-                               data-tippy-inertia="true"
-                               data-tippy-animation="shift-away"
-                               data-tippy-delay="50"
-                               data-tippy-arrow="true"
-                               data-tippy-theme="sharpborder"></i>
-                        </a>
-                        <a href="single-product-variable.html"
-                           class="product-item_img">
-                            <img class="img-full"
-                                 src="~/assets/images/product/small-size/2-2-70x78.png"
-                                 alt="Product Image" />
-                        </a>
-                        <div class="product-item_content">
-                            <a class="product-item_title"
-                               href="single-product-variable.html">Black Eyed Susan</a>
-                            <span class="product-item_quantity">1 x $25.45</span>
-                        </div>
-                    </li>
-                    <li class="minicart-product">
-                        <a class="product-item_remove" href="#">
-                            <i class="pe-7s-close"
-                               data-tippy="Remove"
-                               data-tippy-inertia="true"
-                               data-tippy-animation="shift-away"
-                               data-tippy-delay="50"
-                               data-tippy-arrow="true"
-                               data-tippy-theme="sharpborder"></i>
-                        </a>
-                        <a href="single-product-variable.html"
-                           class="product-item_img">
-                            <img class="img-full"
-                                 src="~/assets/images/product/small-size/2-3-70x78.png"
-                                 alt="Product Image" />
-                        </a>
-                        <div class="product-item_content">
-                            <a class="product-item_title"
-                               href="single-product-variable.html">Bleeding Heart</a>
-                            <span class="product-item_quantity">1 x $30.45</span>
-                        </div>
-                    </li>
+                    </li>*@
+                   
                 </ul>
             </div>
             <div class="minicart-item_total">
@@ -847,11 +836,13 @@
                 <span class="ammount">$79.35</span>
             </div>
             <div class="group-btn_wrap d-grid gap-2">
-                <a href="cart.html" class="btn btn-dark">View Cart</a>
+                <a asp-controller="Basket" asp-action="Index" class="btn btn-dark">View Cart</a>
                 <a href="checkout.html" class="btn btn-dark">Checkout</a>
             </div>
         </div>
     </div>
+
+
     <div class="global-overlay"></div>
 </header>
 <!-- Main Header Area End Here -->

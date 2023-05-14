@@ -86,44 +86,7 @@
     })
 
 
-    //SEARCH WITH li
-
-    $(document).on("keyup", ".input-field", function () {
-        $("#search-list li").slice(1).remove();
-        let value = $(".input-field").val();  
-        
-        $.ajax({   
-
-            url: `shop/search?searchText=${value}`,   
-
-            type: "Get",
-
-            success: function (res) {
-               
-                $("#search-list").append(res);   
-            }
-
-
-
-        })
-
-
-    })
-
-
-
-    //MAIN SEARCH
-
-    $(document).on("submit", ".hm-searchbox", function (e) {
-        e.preventDefault();
-        let value = $(".input-search").val();
-        let url = `/shop/mainsearch?searchText=${value}`;
-
-        window.location.assign(url);
-
-
-    })
-
+ 
 
     //get products by tag  on click tag
     $(document).on("click", ".tag", function (e) {
@@ -147,8 +110,6 @@
 
 
 
-
-    //BLOGS
 
 
 

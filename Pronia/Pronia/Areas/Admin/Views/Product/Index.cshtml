@@ -2,11 +2,15 @@
 @{
     ViewData["Title"] = "Index";
     int take = ViewBag.take;
-    int changeCount = (Model.CurrentPage - 1) * take + 1; 
+    int changeCount = (Model.CurrentPage - 1) * take + 1;
 }
 
 
 <div class="container my-5">
+   @* @if (User.IsInRole("SuperAdmin"))
+    {
+        
+    }*@
     <a class="btn btn-success text-white" asp-action="Create" style="float:right">Create</a>
     <div class="table-responsive">
         <table class="table table-striped">

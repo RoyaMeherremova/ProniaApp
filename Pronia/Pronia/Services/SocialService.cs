@@ -14,6 +14,8 @@ namespace Pronia.Services
             _context = context;
         }
         public async Task<List<Social>> GetAllSocials()=> await _context.Socials.Where(m => !m.SofDelete).ToListAsync();
-   
+
+        public async Task<Social> GetSocialById(int? id) => await _context.Socials.Where(m => !m.SofDelete).FirstOrDefaultAsync(m => m.Id == id);
+
     }
 }

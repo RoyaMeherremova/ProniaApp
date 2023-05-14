@@ -11,6 +11,10 @@ namespace Pronia.ViewModels
 
         public List<Product> RelatedProducts { get; set; }
 
+        public List<ProductComment> ProductComments { get; set; }    
+
+        public CommentVM CommentVM { get; set; }
+
 
     }
 }

@@ -20,7 +20,6 @@ namespace Pronia.Services
                                                                             .Include(m => m.ProductTags)
                                                                             .ThenInclude(m => m.Tag)
                                                                             .Include(m => m.Color)
-                                                                            .Include(m => m.Comments)
                                                                             .Where(m => !m.SofDelete).ToListAsync();
 
         public async Task<Product> GetFullDataById(int? id)
@@ -33,7 +32,6 @@ namespace Pronia.Services
                                                                     .Include(m => m.ProductTags)
                                                                     .ThenInclude(m => m.Tag)
                                                                     .Include(m => m.Color)
-                                                                    .Include(m => m.Comments)
                                                                     .FirstOrDefaultAsync(m => m.Id == id);
             return productById;
         }
@@ -54,7 +52,6 @@ namespace Pronia.Services
                                         .ThenInclude(m => m.Category)
                                         .Include(m => m.ProductSizes)
                                         .Include(m => m.ProductTags)
-                                        .Include(m => m.Comments)
                                         .Where(m => !m.SofDelete)
                                         .Skip((page * take) - take).Take(take).ToListAsync();
             }
@@ -92,7 +89,6 @@ namespace Pronia.Services
                                                                 .ThenInclude(m => m.Category)
                                                                 .Include(m => m.ProductSizes)
                                                                 .Include(m => m.ProductTags)
-                                                                .Include(m => m.Comments)
                                                                 .Where(m => !m.SofDelete)
                                                                  .OrderByDescending(m => m.CreadtedDate)
                                                                  .Take(4).ToListAsync();

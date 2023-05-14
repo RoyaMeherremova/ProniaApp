@@ -1,6 +1,14 @@
-﻿@model HomeVM
+﻿@using System.Security.Claims;
+@model HomeVM
+
+@if (User.Identity.IsAuthenticated)
+{
+    ViewBag.UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
 @{
     ViewData["Title"] = "Home";
+
    
 }
 
@@ -202,8 +210,7 @@
                                 </a>
                               </li>
                               <li>
-                                <a
-                                  href="cart.html"
+                                <a data-id="@featurProduct.Id"
                                   data-tippy="Add to cart"
                                   data-tippy-inertia="true"
                                   data-tippy-animation="shift-away"
@@ -211,7 +218,7 @@
                                   data-tippy-arrow="true"
                                   data-tippy-theme="sharpborder"
                                 >
-                                  <i class="pe-7s-cart"></i>
+                                  <i class="pe-7s-cart add-basket"></i>
                                 </a>
                               </li>
                             </ul>
@@ -290,14 +297,14 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="cart.html"
+                                                        <a href="cart.html" data-id="@bestsel.Id"
                                                        data-tippy="Add to cart"
                                                        data-tippy-inertia="true"
                                                        data-tippy-animation="shift-away"
                                                        data-tippy-delay="50"
                                                        data-tippy-arrow="true"
                                                        data-tippy-theme="sharpborder">
-                                                            <i class="pe-7s-cart"></i>
+                                                            <i class="pe-7s-cart add-basket"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -388,7 +395,7 @@
                               </li>
                               <li>
                                 <a
-                                  href="cart.html"
+                                  href="cart.html" data-id="@latest.Id"
                                   data-tippy="Add to cart"
                                   data-tippy-inertia="true"
                                   data-tippy-animation="shift-away"
@@ -396,14 +403,14 @@
                                   data-tippy-arrow="true"
                                   data-tippy-theme="sharpborder"
                                 >
-                                  <i class="pe-7s-cart"></i>
+                                  <i class="pe-7s-cart add-basket"></i>
                                 </a>
                               </li>
                             </ul>
                           </div>
                         </div>
                         <div class="product-content">
-                          <a class="product-name" href="shop.html"
+                          <a class="product-name" href="#"
                             >@latest.Name</a
                           >
                           <div class="price-box pb-1">
@@ -577,7 +584,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="cart.html"
+                                                <a href="cart.html" data-id="@newProduct.Id"
                                                data-tippy="Add to cart"
                                                data-tippy-inertia="true"
                                                data-tippy-animation="shift-away"
@@ -721,26 +728,26 @@
                                         <div class="blog-meta">
                                             <ul>
                                                 <li class="author">
-                                                    <a href="#">By: @blog.Author.Name</a>
+                                                    <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">By: @blog.Author.Name</a>
                                                 </li>
                                                 <li class="date">@blog.CreadtedDate.ToString("dd MMMMM yyyy")</li>
                                             </ul>
                                         </div>
                                         <h2 class="title">
-                                            <a href="blog.html">@blog.Tittle</a>
+                                            <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">@blog.Tittle</a>
                                         </h2>
                                         <p class="short-desc mb-7">
-                                            @blog.Description
+                                            @blog.Description.Substring(0,250)
                                         </p>
                                     </div>
                                     <div class="blog-img img-hover-effect">
-                                        <a href="blog.html">
+                                        <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">
                                             <img class="img-full"
                                              src="~/assets/images/website-images/@blog.Images.FirstOrDefault()?.Image"
                                              alt="Blog Image" />
                                         </a>
                                         <div class="inner-btn-wrap">
-                                            <a class="inner-btn" href="blog.html">
+                                            <a class="inner-btn" asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">
                                                 <i class="pe-7s-link"></i>
                                             </a>
                                         </div>
@@ -759,4 +766,8 @@
         </div>
       </div>
 
+
+@section Scripts{
+    <script src="~/assets/js/script.js"></script>
+    }
 

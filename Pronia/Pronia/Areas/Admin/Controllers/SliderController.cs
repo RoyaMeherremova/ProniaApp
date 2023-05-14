@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Areas.Admin.ViewModels;
-using Pronia.Areas.Helpers;
 using Pronia.Data;
+using Pronia.Helpers;
 using Pronia.Models;
 using Pronia.Services.Interfaces;
 
@@ -47,7 +47,7 @@ namespace Pronia.Areas.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View();
+                    return View(slider);
                 }
 
                 
@@ -55,19 +55,19 @@ namespace Pronia.Areas.Admin.Controllers
                     if (!slider.Photo.CheckFileType("image/"))   
                     {
                         ModelState.AddModelError("Photo", "File type must be image");
-                        return View();
+                        return View(slider);
                     }
 
-                //if (!slider.Photo.CheckFileSize(200))
-                //{
-                //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                //    return View(slider);
+                if (!slider.Photo.CheckFileSize(500))
+                {
+                    ModelState.AddModelError("Photo", "Image size must be max 200kb");
+                    return View(slider);
 
-                //}
+                }
 
 
 
-                    string fileName = Guid.NewGuid().ToString() + " " + slider.Photo.FileName;
+                string fileName = Guid.NewGuid().ToString() + " " + slider.Photo.FileName;
                     string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", fileName);
                     await FileHelper.SaveFileAsync(newPath, slider.Photo);
 
@@ -196,17 +196,13 @@ namespace Pronia.Areas.Admin.Controllers
                         ModelState.AddModelError("Photo", "File type must be image");
                         return View(model);
                     }
+                    if (!slider.Photo.CheckFileSize(500))
+                    {
+                        ModelState.AddModelError("Photo", "Image size must be max 200kb");
+                        return View(model);
+                    }
 
-
-                    //if (!slider.Photo.CheckFileSize(200))
-                    //{
-                    //    ModelState.AddModelError("Photo", "Image size must be max 200kb");
-                    //    return View(model);
-                    //}
-
-
-
-                    string deletePath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", slider.Image);
+                    string deletePath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", dbSlider.Image);
                     FileHelper.DeleteFile(deletePath);
                     string fileName = Guid.NewGuid().ToString() + " " + slider.Photo.FileName;
                     string newPath = FileHelper.GetFilePath(_env.WebRootPath, "assets/images/website-images", fileName);

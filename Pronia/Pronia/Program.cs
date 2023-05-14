@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pronia.Data;
+using Pronia.Helpers;
 using Pronia.Models;
 using Pronia.Services;
 using Pronia.Services.Interfaces;
@@ -36,6 +37,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
 
 
 });
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<ILayoutService, LayoutService>();
@@ -50,7 +52,12 @@ builder.Services.AddScoped<IColorService, ColorService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBannerService, BannerService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IHeaderBackgroundService, HeaderBackgroundService>();
+builder.Services.AddScoped<ISettingService, SettingService>();
 builder.Services.AddScoped<ISizeService, SizeService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IBasketService, BasketService>();
+builder.Services.AddScoped<EmailSettings>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

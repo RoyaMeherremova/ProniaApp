@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Pronia.Areas.Admin.ViewModels;
 using Pronia.Data;
 using Pronia.Helpers;
 using Pronia.Models;
@@ -72,7 +74,6 @@ namespace Pronia.Controllers
                                             .Include(m => m.ProductCategories)
                                             .Include(m => m.ProductSizes)
                                             .Include(m => m.ProductTags)
-                                            .Include(m => m.Comments)
                                             .Where(m => m.Name.ToLower().Contains(searchText.ToLower()))
                                             .Take(5)
                                             .ToListAsync();
@@ -82,18 +83,67 @@ namespace Pronia.Controllers
         
             public async Task<IActionResult> BlogDetail(int? id)
             {
-                Blog blog = await _blogService.GetBlogdById((int) id);
+                Blog blog = await _blogService.GetBlogdById(id);
                 Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
-                BlogDetailVM model = new()
+                List<Category> categories = await _categoryService.GetCategories();
+                List<Tag> tags  = await _tagService.GetAllAsync();
+                List<Product> newProducts = await _productService.GetNewProducts();
+                List<Blog> blogs = await _blogService.GetBlogs();
+                List<BlogComment> blogComments = await _context.BlogComments.Include(m => m.AppUser).Where(m => m.BlogId == id).ToListAsync();
+                CommentVM commentVM = new();
+            List<Blog> relatedBlogs = new();
+                foreach (var blogRelated in blogs)
+                {
+
+                    Blog reLatBlog = await _context.Blogs.Where(m => m.Id == blogRelated.Id).FirstAsync();
+                    relatedBlogs.Add(reLatBlog);
+
+                }
+            BlogDetailVM model = new()
                 {
                     BlogDt = blog,
                     HeaderBackgrounds = headerBackgrounds,
+                    Categories = categories,
+                    Tags = tags,
+                    NewProducts= newProducts,
+                    Blogs = blogs,
+                    RelatedBlogs = relatedBlogs,
+                    BlogComments = blogComments,
 
-                };
+            };
 
                 return View(model);
             }
-        
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> PostComment(BlogDetailVM blogDetailVM, string userId, int blogId)
+        {
+            if (blogDetailVM.CommentVM.Message == null)
+            {
+                ModelState.AddModelError("Message", "Don't empty");
+                return RedirectToAction(nameof(BlogDetail), new { id = blogId });
+            }
+
+            BlogComment blogComment = new()
+            {
+                FullName = blogDetailVM.CommentVM?.FullName,
+                Email = blogDetailVM.CommentVM?.Email,
+                Subject = blogDetailVM.CommentVM?.Subject,
+                Message = blogDetailVM.CommentVM?.Message,
+                AppUserId = userId,
+                BlogId = blogId
+            };
+
+            await _context.BlogComments.AddAsync(blogComment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(BlogDetail), new { id = blogId });
+
+        }
 
     }
 }

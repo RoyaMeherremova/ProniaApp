@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Areas.Admin.ViewModels;
-using Pronia.Areas.Helpers;
 using Pronia.Data;
+using Pronia.Helpers;
 using Pronia.Models;
 using Pronia.Services.Interfaces;
 
@@ -67,7 +67,7 @@ namespace Pronia.Areas.Admin.Controllers
 
 
 
-                if (!brand.Photo.CheckFileSize(200))
+                if (!brand.Photo.CheckFileSize(500))
                 {
                     ModelState.AddModelError("Photo", "Image size must be max 200kb");
                     return View(brand);
@@ -181,7 +181,7 @@ namespace Pronia.Areas.Admin.Controllers
                         return View(model);
                     }
 
-                    if (!brandUpdate.Photo.CheckFileSize(200))
+                    if (!brandUpdate.Photo.CheckFileSize(500))
                     {
                         ModelState.AddModelError("Photo", "Image size must be max 200kb");
                         return View(model);

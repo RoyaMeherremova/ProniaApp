@@ -75,14 +75,12 @@
                                             <div class="swiper-slide">
                                                 <div class="widgets-list-item">
                                                     <div class="widgets-list-img">
-                                                        @foreach(var blogImage in blog.Images)
-                                                        {
-                                                            <a href="#">
-                                                                <img class="img-full"
-                                                             src="~/assets/images/website-images/@blogImage.Image"
+
+                                                        <a href="#">
+                                                            <img class="img-full"
+                                                             src="~/assets/images/website-images/@blog.Images.FirstOrDefault(m => m.IsMain).Image"
                                                              alt="Blog Images" />
-                                                            </a>
-                                                        }
+                                                        </a>
                                                     </div>
                                                     <div class="widgets-list-content">
                                                         <div class="widgets-meta">
@@ -139,29 +137,28 @@
                                         <div class="blog-meta">
                                             <ul>
                                                 <li class="author">
-                                                    <a href="#">By: @blog.Author.Name</a>
+                                                    <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id"> By: @blog.Author.Name</a>
                                                 </li>
                                                 <li class="date">@blog.CreadtedDate.ToString("dd MMMMM yyyy")</li>
                                             </ul>
                                         </div>
                                         <h2 class="title">
-                                            <a href="blog-detail.html">@blog.Tittle</a>
+                                            <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">@blog.Tittle</a>
                                         </h2>
                                         <p class="short-desc mb-7">
-                                            @blog.Description
+                                            @blog.Description.Substring(0,250)
                                         </p>
                                     </div>
                                     <div class="blog-img img-hover-effect">
-                                        <a href="blog-detail.html">
-                                            @foreach (var blogImage in blog.Images)
-                                            {
-                                                <img class="img-full"
-                                             src="~/assets/images/website-images/@blogImage.Image"
+                                        <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">
+
+                                            <img class="img-full"
+                                             src="~/assets/images/website-images/@blog.Images.FirstOrDefault(m => m.IsMain).Image"
                                              alt="Blog Image" />
-                                            }
+
                                         </a>
                                         <div class="inner-btn-wrap">
-                                            <a class="inner-btn" href="blog-detail.html">
+                                            <a class="inner-btn" asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@blog.Id">
                                                 <i class="pe-7s-link"></i>
                                             </a>
                                         </div>
@@ -176,13 +173,13 @@
                                     <div class="blog-meta">
                                         <ul>
                                             <li class="author">
-                                                <a href="#">By: Admin</a>
+                                                <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@Model.Blogs.FirstOrDefault().Id">By: Admin</a>
                                             </li>
                                             <li class="date">24 April 2021</li>
                                         </ul>
                                     </div>
                                     <h2 class="title">
-                                        <a href="blog-detail.html">Blog Audio Post</a>
+                                        <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@Model.Blogs.FirstOrDefault().Id">Blog Audio Post</a>
                                     </h2>
                                     <p class="short-desc mb-7">
                                         Lorem ipsum dolor sit amet, consecteturl adipisl elit,
@@ -202,13 +199,13 @@
                                     <div class="blog-meta">
                                         <ul>
                                             <li class="author">
-                                                <a href="#">By: Admin</a>
+                                                <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@Model.Blogs.FirstOrDefault().Id">By: Admin</a>
                                             </li>
                                             <li class="date">24 April 2021</li>
                                         </ul>
                                     </div>
                                     <h2 class="title">
-                                        <a href="blog-detail.html">Blog Video Post</a>
+                                        <a asp-controller="Blog" asp-action="BlogDetail" asp-route-id="@Model.Blogs.FirstOrDefault().Id">Blog Video Post</a>
                                     </h2>
                                     <p class="short-desc mb-7">
                                         Lorem ipsum dolor sit amet, consecteturl adipisl elit,

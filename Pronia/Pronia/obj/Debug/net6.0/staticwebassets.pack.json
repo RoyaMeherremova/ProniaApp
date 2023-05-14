@@ -941,10 +941,6 @@
       "PackagePath": "staticwebassets\\assets\\images\\testimonial\\user\\3.png"
     },
     {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\09105cdf-e96c-4c52-a12b-eab6bb277c24_avatar-1.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\09105cdf-e96c-4c52-a12b-eab6bb277c24_avatar-1.png"
-    },
-    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\1--1rnu4p.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\1--1rnu4p.png"
     },
@@ -1129,36 +1125,8 @@
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\2.png"
     },
     {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\287fb050-4191-4cb8-930a-a83dc95feeb6_collegues-photo.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\287fb050-4191-4cb8-930a-a83dc95feeb6_collegues-photo.jpg"
-    },
-    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\3.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\3.png"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\49eac67d-7b81-4ff1-aa45-b35f044d9120_IMG_20221130_141232.jpg",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\49eac67d-7b81-4ff1-aa45-b35f044d9120_IMG_20221130_141232.jpg"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\6094d534-5604-4bfa-acd6-258ccfb39773_avatar-1.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\6094d534-5604-4bfa-acd6-258ccfb39773_avatar-1.png"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\623d2717-47d0-4f8f-9383-15e2553686c0_avatar-2.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\623d2717-47d0-4f8f-9383-15e2553686c0_avatar-2.png"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\6b939d57-fa5f-4f5e-bf8f-136cd840de71_avatar-3.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\6b939d57-fa5f-4f5e-bf8f-136cd840de71_avatar-3.png"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\78c88ea8-c1cd-4f39-a902-eec183b8f735_avatar-2.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\78c88ea8-c1cd-4f39-a902-eec183b8f735_avatar-2.png"
-    },
-    {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\b6578ad4-6495-4c66-9328-c6576a4211d2_avatar-3.png",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\b6578ad4-6495-4c66-9328-c6576a4211d2_avatar-3.png"
     },
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\car.png",
@@ -1173,16 +1141,16 @@
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\dark.png"
     },
     {
-      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\e78515cd-f8c5-4dcc-a4e0-f8dc4c52451a_707e74cd-f654-45eb-9fe2-5a75308b4c83.jfif",
-      "PackagePath": "staticwebassets\\assets\\images\\website-images\\e78515cd-f8c5-4dcc-a4e0-f8dc4c52451a_707e74cd-f654-45eb-9fe2-5a75308b4c83.jfif"
-    },
-    {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\quotation.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\quotation.png"
     },
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\images\\website-images\\service.png",
       "PackagePath": "staticwebassets\\assets\\images\\website-images\\service.png"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\js\\index.js",
+      "PackagePath": "staticwebassets\\assets\\js\\index.js"
     },
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\assets\\js\\main.js",
@@ -3419,6 +3387,10 @@
     {
       "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\lenovo\\Desktop\\PRONIA\\Pronia\\Pronia\\wwwroot\\templates\\verify.html",
+      "PackagePath": "staticwebassets\\templates\\verify.html"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Pronia.Microsoft.AspNetCore.StaticWebAssets.props",

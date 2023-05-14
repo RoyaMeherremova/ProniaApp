@@ -238,26 +238,30 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-                            <i class="mdi mdi-circle-outline menu-icon"></i>
-                            <span class="menu-title">Expert area</span>
-                            <i class="menu-arrow"></i>
+                        <a class="nav-link" asp-area="Admin" asp-controller="HeaderBackground" asp-action="Index">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <span class="menu-title">HeaderBackgrounds</span>
                         </a>
-                        <div class="collapse" id="ui-basic2">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="ExpertHeader" asp-action="Index">ExpertHeader</a></li>
-                                <li class="nav-item"> <a class="nav-link" asp-area="Admin" asp-controller="Expert" asp-action="Index">Experts</a></li>
-                            </ul>
-                        </div>
                     </li>
-                 
+                        <li class="nav-item">
+                        <a class="nav-link" asp-area="Admin" asp-controller="Setting" asp-action="Index">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <span class="menu-title">Settings</span>
+                        </a>
+                    </li>
+                   
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Product" asp-action="Index">
-                            <i class="mdi mdi-emoticon menu-icon"></i>
-                            <span class="menu-title">Products</span>
+                        <a class="nav-link" asp-area="Admin" asp-controller="Social" asp-action="Index">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <span class="menu-title">Socials</span>
                         </a>
                     </li>
-                 
+                        <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="Author" asp-action="Index">
+                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <span class="menu-title">Authors</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                             <i class="mdi mdi-account menu-icon"></i>

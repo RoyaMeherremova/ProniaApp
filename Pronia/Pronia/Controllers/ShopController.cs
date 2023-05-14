@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pronia.Data;
 using Pronia.Helpers;
@@ -94,7 +95,6 @@ namespace Pronia.Controllers
                                             .Include(m => m.ProductCategories)
                                             .Include(m => m.ProductSizes)
                                             .Include(m => m.ProductTags)
-                                            .Include(m => m.Comments)
                                             .Where(m => m.Name.ToLower().Contains(searchText.ToLower()))
                                             .Take(5)
                                             .ToListAsync();
@@ -110,12 +110,12 @@ namespace Pronia.Controllers
             Dictionary<string, string> headerBackgrounds = _context.HeaderBackgrounds.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
             List<Advertising> advertisings = await _advertisingService.GetAll();
             List<Category> categories = await _categoryService.GetCategories();
-            List<Product> relatedproducts = new();
+            List<ProductComment> productComments = await _context.ProductComments.Include(m => m.AppUser).Where(m => m.ProductId == id).ToListAsync();
+            CommentVM commentVM = new();
+            List <Product> relatedproducts = new();
             foreach(var category in categories)
             {
-              
-                
-                    Product reProduct = await _context.ProductCategories.Where(m=>m.Category.Id==category.Id).Select(m => m.Product).FirstAsync();
+                    Product reProduct = await _context.ProductCategories.Include(pc => pc.Product).ThenInclude(p => p.Images).Where(m=>m.Category.Id==category.Id).Select(m => m.Product).FirstAsync();
                     relatedproducts.Add(reProduct);
                 
             }
@@ -124,9 +124,39 @@ namespace Pronia.Controllers
                 HeaderBackgrounds = headerBackgrounds,
                 ProductDetail = product,
                 Advertisings = advertisings,
-                RelatedProducts = relatedproducts
+                RelatedProducts = relatedproducts,
+                ProductComments= productComments,
+                CommentVM = commentVM
             };
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> PostComment(ProductDetailVM productDetailVM, string userId, int productId)
+        {
+            if (productDetailVM.CommentVM.Message == null)
+            {
+                ModelState.AddModelError("Message", "Don't empty");
+                return RedirectToAction(nameof(ProductDetail), new { id = productId });
+            }
+
+            ProductComment productComment = new()
+            {
+                FullName = productDetailVM.CommentVM?.FullName,
+                Email = productDetailVM.CommentVM?.Email,
+                Subject = productDetailVM.CommentVM?.Subject,
+                Message = productDetailVM.CommentVM?.Message,
+                AppUserId = userId,
+                ProductId = productId
+            };
+
+            await _context.ProductComments.AddAsync(productComment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ProductDetail), new { id = productId });
+
         }
 
         public IActionResult MainSearch(string searchText)

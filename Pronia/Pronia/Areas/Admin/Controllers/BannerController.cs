@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Areas.Admin.ViewModels;
-using Pronia.Areas.Helpers;
 using Pronia.Data;
+using Pronia.Helpers;
 using Pronia.Models;
 using Pronia.Services;
 using Pronia.Services.Interfaces;

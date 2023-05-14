@@ -23,15 +23,15 @@
 
          public  ICollection<ProductImage> Images { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
-
         public ICollection<ProductSize> ProductSizes { get; set; }
 
         public ICollection<ProductTag> ProductTags { get; set; }
 
         public ICollection<ProductCategory> ProductCategories { get; set; }
 
+        public ICollection<ProductComment> ProductComments { get; set; }
 
+        public ICollection<ProductBasket> ProductBasket { get; set; }
 
     }
 }
